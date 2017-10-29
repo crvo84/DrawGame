@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732509031FA5B4BF0013BDB6 /* DrawView.swift */; };
 		73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612BE1FA561CD000F2A10 /* AppDelegate.swift */; };
-		73A612C11FA561CD000F2A10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C01FA561CD000F2A10 /* ViewController.swift */; };
+		73A612C11FA561CD000F2A10 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C01FA561CD000F2A10 /* LandingViewController.swift */; };
 		73A612C91FA561CD000F2A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73A612C81FA561CD000F2A10 /* Assets.xcassets */; };
 		73A612CC1FA561CD000F2A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A612CA1FA561CD000F2A10 /* LaunchScreen.storyboard */; };
 		73A7F0861FA636B100BD24BB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A7F0851FA636B100BD24BB /* RootViewController.swift */; };
+		73A7F0881FA637F800BD24BB /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A7F0871FA637F800BD24BB /* LaunchViewController.swift */; };
+		73A7F08A1FA6385D00BD24BB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A7F0891FA6385D00BD24BB /* Theme.swift */; };
 		CF51094E399BC82DBEBD0E0D /* Pods_DrawGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,11 +23,13 @@
 		732509031FA5B4BF0013BDB6 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		73A612BB1FA561CD000F2A10 /* DrawGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A612BE1FA561CD000F2A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		73A612C01FA561CD000F2A10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		73A612C01FA561CD000F2A10 /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		73A612C81FA561CD000F2A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73A612CB1FA561CD000F2A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73A612CD1FA561CD000F2A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73A7F0851FA636B100BD24BB /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		73A7F0871FA637F800BD24BB /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		73A7F0891FA6385D00BD24BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.debug.xcconfig"; sourceTree = "<group>"; };
 		A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +82,8 @@
 		732509021FA5B4780013BDB6 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				73A612C01FA561CD000F2A10 /* ViewController.swift */,
+				73A7F0871FA637F800BD24BB /* LaunchViewController.swift */,
+				73A612C01FA561CD000F2A10 /* LandingViewController.swift */,
 				73A7F0851FA636B100BD24BB /* RootViewController.swift */,
 			);
 			path = App;
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				73A612BE1FA561CD000F2A10 /* AppDelegate.swift */,
+				73A7F0891FA6385D00BD24BB /* Theme.swift */,
 				732509011FA5B4710013BDB6 /* Views */,
 				732509001FA5B4640013BDB6 /* Model */,
 				732509021FA5B4780013BDB6 /* App */,
@@ -253,8 +259,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73A612C11FA561CD000F2A10 /* ViewController.swift in Sources */,
+				73A612C11FA561CD000F2A10 /* LandingViewController.swift in Sources */,
+				73A7F0881FA637F800BD24BB /* LaunchViewController.swift in Sources */,
 				73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */,
+				73A7F08A1FA6385D00BD24BB /* Theme.swift in Sources */,
 				73A7F0861FA636B100BD24BB /* RootViewController.swift in Sources */,
 				732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */,
 			);

@@ -8,11 +8,65 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+final class RootViewController: UIViewController {
 
+    fileprivate struct Time {
+        static let fadeInOutContentViewController: TimeInterval = 0.4
+    }
+    
+    enum MagmaContentViewControllerType {
+        case landing
+    }
+    
+    fileprivate(set) var contentViewController: UIViewController? {
+        didSet {
+            if let newContentViewController = contentViewController {
+                addChildViewController(newContentViewController)
+                view.insertSubview(newContentViewController.view, at: 0)
+                newContentViewController.view.snp.remakeConstraints { make in
+                    make.edges.equalTo(view)
+                }
+                newContentViewController.didMove(toParentViewController: self)
+            }
+            self.setNeedsStatusBarAppearanceUpdate()
+            
+            if let oldContentViewController = oldValue {
+                oldContentViewController.willMove(toParentViewController: nil)
+                UIView.animate(withDuration: Time.fadeInOutContentViewController, animations: { () -> Void in
+                    oldContentViewController.view.alpha = 0.0
+                }, completion: { finished in
+                    oldContentViewController.view.removeFromSuperview()
+                    oldContentViewController.removeFromParentViewController()
+                })
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // self
+        view.backgroundColor = Theme.Colors.background
+        edgesForExtendedLayout = UIRectEdge()
+        extendedLayoutIncludesOpaqueBars = false
+        
+        contentViewController = LaunchViewController()
+        
+        // TODO: do logo animations here
+        
+        handleCurrentSessionState()
+    }
+    
+    fileprivate func handleCurrentSessionState() {
+        presentContentViewController(type: .landing)
+    }
+    
+    func presentContentViewController(type: MagmaContentViewControllerType) {
+        switch type {
+        case .landing:
+            let landingViewController = LandingViewController()
+            let navigationController = UINavigationController(rootViewController: landingViewController)
+            contentViewController = navigationController
+        }
     }
 }

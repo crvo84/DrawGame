@@ -43,13 +43,14 @@ class LandingViewController: UIViewController {
 
 extension LandingViewController: PaletteViewDataSource {
     func colors(forPaletteView: PaletteView) -> [UIColor] {
-        return [.blue, .yellow, .green, .red, .green, .lightGray, .gray, .darkGray, .black]
+        return [.white, .cyan, .blue, .purple, .magenta, .brown, .red, .orange,
+                .yellow, .green, .lightGray, .gray, .darkGray, .black]
     }
 }
 
 extension LandingViewController: PaletteViewDelegate {
     func didSelectColor(_ color: UIColor, paletteView: PaletteView) {
-        
+        drawView.brushColor = color
     }
 }
 

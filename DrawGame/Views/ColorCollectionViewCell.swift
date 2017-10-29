@@ -16,6 +16,11 @@ class ColorCollectionViewCell: UICollectionViewCell {
     
     fileprivate struct Geometry {
         static let cornerRadius: CGFloat = 5.0
+        static let borderWidth: CGFloat = 0.5
+    }
+    
+    fileprivate struct Color {
+        static let borderColor: UIColor = .lightGray
     }
     
     weak var delegate: ColorCollectionViewCellDelegate?
@@ -23,6 +28,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
     fileprivate var button = UIButton()
     
     var color: UIColor? { didSet { updateColor() } }
+    var colorWithBorder: UIColor? { didSet { updateColor() } }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,13 +54,20 @@ class ColorCollectionViewCell: UICollectionViewCell {
         button.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        button.addTarget(self, action: #selector(didPressButton), for: .touchUpInside)
         button.layer.cornerRadius = Geometry.cornerRadius
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(didPressButton), for: .touchUpInside)
     }
     
     fileprivate func updateColor() {
         button.backgroundColor = color
+        if let color = color, let colorWithBorder = colorWithBorder,
+            color == colorWithBorder {
+            button.layer.borderWidth = Geometry.borderWidth
+            button.layer.borderColor = Color.borderColor.cgColor
+        } else {
+            button.layer.borderWidth = 0.0
+        }
     }
     
     @objc fileprivate func didPressButton() {

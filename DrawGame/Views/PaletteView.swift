@@ -25,6 +25,10 @@ class PaletteView: UIView {
         static let verticalContentInset: CGFloat = 8.0
     }
     
+    fileprivate struct Colors {
+        static let backgroundColor: UIColor = .white
+    }
+    
     fileprivate struct ReuseId {
         static let colorCell = "ColorCollectionViewCell"
     }
@@ -60,7 +64,7 @@ class PaletteView: UIView {
     
     fileprivate func initialSetup() {
         addSubview(collectionView)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Colors.backgroundColor
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -102,6 +106,8 @@ class PaletteView: UIView {
         if let colorCell = cell as? ColorCollectionViewCell {
             let color = colors[indexPath.row]
             colorCell.color = color
+            colorCell.colorWithBorder = Colors.backgroundColor
+            colorCell.delegate = self
         }
         
         return cell
@@ -109,10 +115,7 @@ class PaletteView: UIView {
 }
 
 extension PaletteView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let color = colors[indexPath.row]
-        delegate?.didSelectColor(color, paletteView: self)
-    }
+
 }
 
 extension PaletteView: UICollectionViewDelegateFlowLayout {
@@ -140,6 +143,12 @@ extension PaletteView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension PaletteView: ColorCollectionViewCellDelegate {
+    func didPressButton(colorCollectionViewCell: ColorCollectionViewCell) {
+        guard let color = colorCollectionViewCell.color else { return }
+        delegate?.didSelectColor(color, paletteView: self)
+    }
+}
 
 
 

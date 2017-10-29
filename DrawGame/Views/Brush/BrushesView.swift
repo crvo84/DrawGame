@@ -75,7 +75,7 @@ class BrushesView: UIView {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
+//        collectionView.isPagingEnabled = true
         collectionView.register(BrushCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ReuseId.brushCell)
     }
@@ -124,6 +124,31 @@ extension BrushesView: UICollectionViewDataSource {
 extension BrushesView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         return
+    }
+}
+
+extension BrushesView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let height = collectionView.bounds.height - Geometry.verticalContentInset * 2
+        let width = height * Geometry.cellSizeRatio
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: Geometry.verticalContentInset,
+                            left: Geometry.horizontalContentInset,
+                            bottom: Geometry.verticalContentInset,
+                            right: Geometry.horizontalContentInset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Geometry.cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Geometry.cellSpacing
     }
 }
 

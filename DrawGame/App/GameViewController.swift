@@ -46,7 +46,7 @@ class GameViewController: UIViewController {
         view.addSubview(brushesView)
         brushesView.snp.makeConstraints { make in
             make.top.equalTo(paletteView.snp.bottom).offset(4.0)
-            make.height.equalTo(80)
+            make.height.equalTo(60)
             make.left.right.equalToSuperview()
         }
         brushesView.delegate = self
@@ -71,7 +71,7 @@ extension GameViewController: PaletteViewDelegate {
 
 extension GameViewController: BrushesViewDataSource {
     func widths(forBrushesView: BrushesView) -> [CGFloat] {
-        return [1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0]
+        return [1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0]
     }
     
     func color(forBrushesView: BrushesView) -> UIColor {

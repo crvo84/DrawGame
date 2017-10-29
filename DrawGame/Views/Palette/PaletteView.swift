@@ -72,7 +72,7 @@ class PaletteView: UIView {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
+//        collectionView.isPagingEnabled = true
         collectionView.register(ColorCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ReuseId.colorCell)
     }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol BrushesViewDataSource: class {
     func widths(forBrushesView: BrushesView) -> [CGFloat]
+    func color(forBrushesView: BrushesView) -> UIColor
 }
 
 protocol BrushesViewDelegate: class {
@@ -21,7 +22,7 @@ class BrushesView: UIView {
     fileprivate struct Geometry {
         static let cellSizeRatio: CGFloat = 1.0
         static let cellSpacing: CGFloat = 16.0
-        static let horizontalContentInset: CGFloat = 20.0
+        static let horizontalContentInset: CGFloat = 40.0
         static let verticalContentInset: CGFloat = 8.0
     }
     
@@ -40,9 +41,8 @@ class BrushesView: UIView {
     fileprivate let collectionView: UICollectionView!
     
     fileprivate var widths: [CGFloat] = []
-    
-    var color: UIColor? { didSet { updateColor() } }
-    
+    fileprivate var color: UIColor = Colors.defaultColor
+
     // MARK: - Initialize
     
     required override init(frame: CGRect) {
@@ -76,7 +76,7 @@ class BrushesView: UIView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
-        collectionView.register(ColorCollectionViewCell.self,
+        collectionView.register(BrushCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ReuseId.brushCell)
     }
     
@@ -84,19 +84,13 @@ class BrushesView: UIView {
     
     func reloadData() {
         let newWidths = dataSource?.widths(forBrushesView: self) ?? []
-        guard self.widths != newWidths else { return } // nothing to update
+        let newColor = dataSource?.color(forBrushesView: self) ?? Colors.defaultColor
+        guard self.widths != newWidths || self.color != newColor
+            else { return } // nothing to update
         
         self.widths = newWidths
+        self.color = newColor
         collectionView.reloadData()
-    }
-    
-    fileprivate func updateColor() {
-        _ = collectionView.visibleCells.map {
-            if let brushCell = $0 as? BrushCollectionViewCell {
-                brushCell.color = color
-                brushCell.colorWithBorder = Colors.backgroundColor
-            }
-        }
     }
 }
 
@@ -118,7 +112,8 @@ extension BrushesView: UICollectionViewDataSource {
         if let brushCell = cell as? BrushCollectionViewCell {
             let width = widths[indexPath.row]
             brushCell.width = width
-            brushCell.color = color ?? Colors.defaultColor
+            brushCell.color = self.color
+            brushCell.colorWithBorder = Colors.backgroundColor
             brushCell.delegate = self
         }
         
@@ -127,7 +122,9 @@ extension BrushesView: UICollectionViewDataSource {
 }
 
 extension BrushesView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        return
+    }
 }
 
 extension BrushesView: BrushCollectionViewCellDelegate {

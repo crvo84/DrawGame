@@ -12,6 +12,7 @@ class GameViewController: UIViewController {
     
     fileprivate let drawView = DrawView()
     fileprivate let paletteView = PaletteView()
+    fileprivate let brushesView = BrushesView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class GameViewController: UIViewController {
     fileprivate func initialSetup() {
         view.backgroundColor = Theme.Colors.background
         
+        // DRAW VIEW
         view.addSubview(drawView)
         drawView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20.0)
@@ -29,6 +31,7 @@ class GameViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
         
+        // PALETTE VIEW
         view.addSubview(paletteView)
         paletteView.snp.makeConstraints { make in
             make.top.equalTo(drawView.snp.bottom).offset(8.0)
@@ -38,6 +41,17 @@ class GameViewController: UIViewController {
         paletteView.delegate = self
         paletteView.dataSource = self
         paletteView.reloadData()
+        
+        // BRUSHES VIEW
+        view.addSubview(brushesView)
+        brushesView.snp.makeConstraints { make in
+            make.top.equalTo(paletteView.snp.bottom).offset(4.0)
+            make.height.equalTo(80)
+            make.left.right.equalToSuperview()
+        }
+        brushesView.delegate = self
+        brushesView.dataSource = self
+        brushesView.reloadData()
     }
 }
 
@@ -51,6 +65,38 @@ extension GameViewController: PaletteViewDataSource {
 extension GameViewController: PaletteViewDelegate {
     func didSelectColor(_ color: UIColor, paletteView: PaletteView) {
         drawView.brushColor = color
+        brushesView.reloadData()
     }
 }
+
+extension GameViewController: BrushesViewDataSource {
+    func widths(forBrushesView: BrushesView) -> [CGFloat] {
+        return [1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0]
+    }
+    
+    func color(forBrushesView: BrushesView) -> UIColor {
+        return drawView.brushColor
+    }
+}
+
+extension GameViewController: BrushesViewDelegate {
+    func didSelectWidth(_ width: CGFloat, brushesView: BrushesView) {
+        drawView.brushWidth = width
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

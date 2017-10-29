@@ -21,7 +21,7 @@ class PaletteView: UIView {
     fileprivate struct Geometry {
         static let colorSizeRatio: CGFloat = 1.0
         static let colorSpacing: CGFloat = 16.0
-        static let horizontalContentInset: CGFloat = 20.0
+        static let horizontalContentInset: CGFloat = 40.0
         static let verticalContentInset: CGFloat = 8.0
     }
     
@@ -115,7 +115,9 @@ class PaletteView: UIView {
 }
 
 extension PaletteView: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        return
+    }
 }
 
 extension PaletteView: UICollectionViewDelegateFlowLayout {

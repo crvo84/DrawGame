@@ -64,8 +64,8 @@ final class RootViewController: UIViewController {
     func presentContentViewController(type: MagmaContentViewControllerType) {
         switch type {
         case .landing:
-            let landingViewController = LandingViewController()
-            let navigationController = UINavigationController(rootViewController: landingViewController)
+            let gameViewController = GameViewController()
+            let navigationController = UINavigationController(rootViewController: gameViewController)
             contentViewController = navigationController
         }
     }

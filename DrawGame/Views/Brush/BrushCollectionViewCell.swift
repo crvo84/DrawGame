@@ -74,7 +74,7 @@ class BrushCollectionViewCell: UICollectionViewCell {
     // MARK: - Update
     
     fileprivate func updateWidth() {
-        let width = width ?? Default.width
+        let width = self.width ?? Default.width
         brushView.snp.updateConstraints { make in
             make.height.equalTo(width)
         }
@@ -91,7 +91,7 @@ class BrushCollectionViewCell: UICollectionViewCell {
             let borderWidth = self.borderWidth ?? Default.borderWidth
             let borderColor = self.borderColor ?? Default.borderColor
             brushView.layer.borderWidth = borderWidth
-            brushView.layer.borderColor = borderColor
+            brushView.layer.borderColor = borderColor.cgColor
         } else {
             brushView.layer.borderWidth = 0.0
         }

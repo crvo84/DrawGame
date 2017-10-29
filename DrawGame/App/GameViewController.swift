@@ -1,5 +1,5 @@
 //
-//  LandingViewController.swift
+//  GameViewController.swift
 //  DrawGame
 //
 //  Created by Carlos Villanueva Ousset on 10/28/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LandingViewController: UIViewController {
+class GameViewController: UIViewController {
     
     fileprivate let drawView = DrawView()
     fileprivate let paletteView = PaletteView()
@@ -41,14 +41,14 @@ class LandingViewController: UIViewController {
     }
 }
 
-extension LandingViewController: PaletteViewDataSource {
+extension GameViewController: PaletteViewDataSource {
     func colors(forPaletteView: PaletteView) -> [UIColor] {
         return [.white, .cyan, .blue, .purple, .magenta, .brown, .red, .orange,
                 .yellow, .green, .lightGray, .gray, .darkGray, .black]
     }
 }
 
-extension LandingViewController: PaletteViewDelegate {
+extension GameViewController: PaletteViewDelegate {
     func didSelectColor(_ color: UIColor, paletteView: PaletteView) {
         drawView.brushColor = color
     }

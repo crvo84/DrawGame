@@ -77,17 +77,26 @@ class BrushesView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isPagingEnabled = true
         collectionView.register(ColorCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ReuseId.widthCell)
+                                forCellWithReuseIdentifier: ReuseId.brushCell)
     }
     
     // MARK: - Update
     
     func reloadData() {
-        let newWidths = dataSource?.widths(forBrushesView: self)
+        let newWidths = dataSource?.widths(forBrushesView: self) ?? []
         guard self.widths != newWidths else { return } // nothing to update
         
         self.widths = newWidths
         collectionView.reloadData()
+    }
+    
+    fileprivate func updateColor() {
+        _ = collectionView.visibleCells.map {
+            if let brushCell = $0 as? BrushCollectionViewCell {
+                brushCell.color = color
+                brushCell.colorWithBorder = Colors.backgroundColor
+            }
+        }
     }
 }
 
@@ -103,7 +112,7 @@ extension BrushesView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseId.widthCell,
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseId.brushCell,
                                                       for: indexPath)
         
         if let brushCell = cell as? BrushCollectionViewCell {
@@ -121,6 +130,12 @@ extension BrushesView: UICollectionViewDelegate {
     
 }
 
+extension BrushesView: BrushCollectionViewCellDelegate {
+    func didPressButton(brushCollectionViewCell: BrushCollectionViewCell) {
+        guard let width = brushCollectionViewCell.width else { return }
+        delegate?.didSelectWidth(width, brushesView: self)
+    }
+}
 
 
 

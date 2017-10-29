@@ -7,23 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732509031FA5B4BF0013BDB6 /* DrawView.swift */; };
 		73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612BE1FA561CD000F2A10 /* AppDelegate.swift */; };
 		73A612C11FA561CD000F2A10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C01FA561CD000F2A10 /* ViewController.swift */; };
-		73A612C41FA561CD000F2A10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A612C21FA561CD000F2A10 /* Main.storyboard */; };
-		73A612C71FA561CD000F2A10 /* DrawGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C51FA561CD000F2A10 /* DrawGame.xcdatamodeld */; };
 		73A612C91FA561CD000F2A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73A612C81FA561CD000F2A10 /* Assets.xcassets */; };
 		73A612CC1FA561CD000F2A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A612CA1FA561CD000F2A10 /* LaunchScreen.storyboard */; };
+		73A7F0861FA636B100BD24BB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A7F0851FA636B100BD24BB /* RootViewController.swift */; };
+		CF51094E399BC82DBEBD0E0D /* Pods_DrawGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		732509031FA5B4BF0013BDB6 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		73A612BB1FA561CD000F2A10 /* DrawGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A612BE1FA561CD000F2A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73A612C01FA561CD000F2A10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		73A612C31FA561CD000F2A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		73A612C61FA561CD000F2A10 /* DrawGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DrawGame.xcdatamodel; sourceTree = "<group>"; };
 		73A612C81FA561CD000F2A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73A612CB1FA561CD000F2A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73A612CD1FA561CD000F2A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73A7F0851FA636B100BD24BB /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.debug.xcconfig"; sourceTree = "<group>"; };
+		A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,62 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF51094E399BC82DBEBD0E0D /* Pods_DrawGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E3E2923E1DFF903CE14A7C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		732508FF1FA5B3D80013BDB6 /* Other Resources */ = {
+			isa = PBXGroup;
+			children = (
+				73A612C81FA561CD000F2A10 /* Assets.xcassets */,
+				73A612CD1FA561CD000F2A10 /* Info.plist */,
+				73A612CA1FA561CD000F2A10 /* LaunchScreen.storyboard */,
+			);
+			path = "Other Resources";
+			sourceTree = "<group>";
+		};
+		732509001FA5B4640013BDB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		732509011FA5B4710013BDB6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				732509031FA5B4BF0013BDB6 /* DrawView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		732509021FA5B4780013BDB6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				73A612C01FA561CD000F2A10 /* ViewController.swift */,
+				73A7F0851FA636B100BD24BB /* RootViewController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		73A612B21FA561CD000F2A10 = {
 			isa = PBXGroup;
 			children = (
 				73A612BD1FA561CD000F2A10 /* DrawGame */,
 				73A612BC1FA561CD000F2A10 /* Products */,
+				9945FC28A28BC3124C1EE008 /* Pods */,
+				5E3E2923E1DFF903CE14A7C3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +106,21 @@
 			isa = PBXGroup;
 			children = (
 				73A612BE1FA561CD000F2A10 /* AppDelegate.swift */,
-				73A612C01FA561CD000F2A10 /* ViewController.swift */,
-				73A612C21FA561CD000F2A10 /* Main.storyboard */,
-				73A612C81FA561CD000F2A10 /* Assets.xcassets */,
-				73A612CA1FA561CD000F2A10 /* LaunchScreen.storyboard */,
-				73A612CD1FA561CD000F2A10 /* Info.plist */,
-				73A612C51FA561CD000F2A10 /* DrawGame.xcdatamodeld */,
+				732509011FA5B4710013BDB6 /* Views */,
+				732509001FA5B4640013BDB6 /* Model */,
+				732509021FA5B4780013BDB6 /* App */,
+				732508FF1FA5B3D80013BDB6 /* Other Resources */,
 			);
 			path = DrawGame;
+			sourceTree = "<group>";
+		};
+		9945FC28A28BC3124C1EE008 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */,
+				A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +130,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73A612D01FA561CD000F2A10 /* Build configuration list for PBXNativeTarget "DrawGame" */;
 			buildPhases = (
+				63FDC3B387DBAC9E185F5CBA /* [CP] Check Pods Manifest.lock */,
 				73A612B71FA561CD000F2A10 /* Sources */,
 				73A612B81FA561CD000F2A10 /* Frameworks */,
 				73A612B91FA561CD000F2A10 /* Resources */,
+				71098079554BA7D1C992B9C4 /* [CP] Embed Pods Frameworks */,
+				260F24844D23D410950DEC9A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -128,34 +187,82 @@
 			files = (
 				73A612CC1FA561CD000F2A10 /* LaunchScreen.storyboard in Resources */,
 				73A612C91FA561CD000F2A10 /* Assets.xcassets in Resources */,
-				73A612C41FA561CD000F2A10 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		260F24844D23D410950DEC9A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63FDC3B387DBAC9E185F5CBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DrawGame-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71098079554BA7D1C992B9C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		73A612B71FA561CD000F2A10 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73A612C71FA561CD000F2A10 /* DrawGame.xcdatamodeld in Sources */,
 				73A612C11FA561CD000F2A10 /* ViewController.swift in Sources */,
 				73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */,
+				73A7F0861FA636B100BD24BB /* RootViewController.swift in Sources */,
+				732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		73A612C21FA561CD000F2A10 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				73A612C31FA561CD000F2A10 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		73A612CA1FA561CD000F2A10 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -276,11 +383,13 @@
 		};
 		73A612D11FA561CD000F2A10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F26XL4W94;
-				INFOPLIST_FILE = DrawGame/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DrawGame/Other Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.villou.DrawGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,11 +400,13 @@
 		};
 		73A612D21FA561CD000F2A10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9F26XL4W94;
-				INFOPLIST_FILE = DrawGame/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DrawGame/Other Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.villou.DrawGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -326,19 +437,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		73A612C51FA561CD000F2A10 /* DrawGame.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				73A612C61FA561CD000F2A10 /* DrawGame.xcdatamodel */,
-			);
-			currentVersion = 73A612C61FA561CD000F2A10 /* DrawGame.xcdatamodel */;
-			path = DrawGame.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 73A612B31FA561CD000F2A10 /* Project object */;
 }

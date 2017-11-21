@@ -30,20 +30,18 @@ struct ApiRequest: URLRequestConvertible {
     var headers: [String: String]
     var URLParams: [String: AnyObject]?
     var bodyParams: [String: AnyObject]?
-    var contentType = "application/json"
+    let contentType = "application/json"
     
     init(method: ApiRequestMethod,
          path: String,
          headers: [String: String] = [:],
          bodyParams: [String: AnyObject]? = nil,
-         fileParams: [String: ApiRequestFileParam]? = nil,
          URLParams: [String: AnyObject]? = nil) {
         self.method = method
         self.path = path
         self.headers = headers
         self.URLParams = URLParams
         self.bodyParams = bodyParams
-        self.fileParams = fileParams
     }
     
     func asURLRequest() throws -> URLRequest {
@@ -69,14 +67,15 @@ struct ApiRequest: URLRequestConvertible {
         #endif
         
         /* Body */
-        guard let bodyParams = self.bodyParams, bodyParams.count > 0 else { break }
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: bodyParams, options: JSONSerialization.WritingOptions(rawValue: 0))
-            r.httpBody = jsonData
-            r.setValue(contentType.rawValue,
-                       forHTTPHeaderField: ApiRequestHeaderField.contentType.rawValue)
-        } catch {
-            print(error)
+        if let bodyParams = self.bodyParams, bodyParams.count > 0 {
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: bodyParams, options: JSONSerialization.WritingOptions(rawValue: 0))
+                r.httpBody = jsonData
+                r.setValue(contentType,
+                           forHTTPHeaderField: ApiRequestHeaderField.contentType.rawValue)
+            } catch {
+                print(error)
+            }
         }
         
         if let bodyCount = r.httpBody?.count {

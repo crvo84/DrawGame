@@ -11,15 +11,15 @@ protocol ApiEndpoint {
 extension ApiEndpoint {
     
     func executeRequest(completion: @escaping (Json?) -> ()) {
-        var request = self.request
+        let request = self.request
 
         SessionManager.default.request(request)
             .validate(statusCode: 200...226)
             .validate(contentType: ["application/json", "text/plain", "text/json", "application/vnd.api+json"])
             .response(queue: DispatchQueue.main) { defaultDataResponse in
 
-                let request = defaultDataResponse.request
-                let response = defaultDataResponse.response
+//                let request = defaultDataResponse.request
+//                let response = defaultDataResponse.response
                 let responseData = defaultDataResponse.data
                 let responseError = defaultDataResponse.error
                 

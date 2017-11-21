@@ -33,30 +33,44 @@ extension DataModel {
             return nil
         }
     }
+    
+    // Returns a 'Result' with a success case with a Json from DataModel
+    func encodeSingle() -> Json? {
+        let encoder = JSONEncoder()
+
+        do {
+            let data = try encoder.encode(self)
+            guard let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Json
+                else { return nil }
+            return json
+            
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 }
 
 extension ApiEndpoint {
-    func getSingle<U: DataModel>(type: U.Type, completion: @escaping (Result<U>) -> ()) {
-        executeRequest { result in
-            switch result {
-            case .success(let json):
-                let result = U.decodeSingle(fromJson: json)
-                completion(result)
-            case .failure(let error):
-                completion(.failure(error))
+    func getSingle<U: DataModel>(type: U.Type, completion: @escaping (U?) -> ()) {
+        executeRequest { json in
+            guard let json = json else {
+                completion(nil)
+                return
             }
+            
+            completion(U.decodeSingle(fromJson: json))
         }
     }
     
-    func getMultiple<U: DataModel>(type: U.Type, completion: @escaping (Result<[U]>) -> ()) {
-        executeRequest { result in
-            switch result {
-            case .success(let json):
-                let result = U.decodeMultiple(fromJson: json)
-                completion(result)
-            case .failure(let error):
-                completion(.failure(error))
+    func getMultiple<U: DataModel>(type: U.Type, completion: @escaping ([U]?) -> ()) {
+        executeRequest { json in
+            guard let json = json else {
+                completion(nil)
+                return
             }
+
+            completion(U.decodeMultiple(fromJson: json))
         }
     }
 }

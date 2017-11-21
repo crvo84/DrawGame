@@ -6,7 +6,9 @@ import UIKit
 
 extension UIImage {
     
-    func getPixelRows() -> [PixelRow]? {
+    // MARK: - UIImage -> Pixels
+    
+    func getPixels() -> [Pixel]? {
         // 1. Get pixels of image
         guard let inputCGImage = self.cgImage else { return nil }
         let width = inputCGImage.width
@@ -25,7 +27,7 @@ extension UIImage {
         context?.draw(inputCGImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         
         // 2. Map color to brightness
-        let pixelArray = pixels.map { color -> Pixel in
+        let result = pixels.map { color -> Pixel in
             let r = red(color)
             let g = green(color)
             let b = blue(color)
@@ -33,24 +35,26 @@ extension UIImage {
             return Pixel(r: Int(r), g: Int(g), b: Int(b))
         }
         
-        return pixelRows(fromArray: pixelArray, width: width, height: height)
+        return result
     }
     
-    private func pixelRows(fromArray array: [Pixel], width: Int,height: Int) -> [PixelRow]? {
-        guard width * height == array.count else { return nil }
+    // MARK: - Pixels -> UIImage
+    
+    func getFrom(pixels: [PixelData], width: Int, height: Int) -> UIImage? {
+        guard pixels.count == width * height else { return nil } // invalid params
+        
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
+        let bitsPerComponent = 8
+        let bitsPerPixel = 32
+        
+        var data = pixels
+        let pixelDataSize = MemoryLayout<PixelData>.size
+        guard let providerRef = CGDataProvider(data: NSData(bytes: &data, length: data.count * pixelDataSize)) else { return nil }
 
-        var pixelRows = [PixelRow]()
-        var index = 0
-        for _ in 0..<height {
-            var pixels = [Pixel]()
-            for _ in 0..<width {
-                pixels.append(array[index])
-                index += 1
-            }
-            pixelRows.append(PixelRow(pixels: pixels))
-        }
-
-        return pixelRows
+        guard let cgImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, bytesPerRow: width * pixelDataSize, space: rgbColorSpace, bitmapInfo: bitmapInfo, provider: providerRef, decode: nil, shouldInterpolate: true, intent: .defaultIntent) else { return nil }
+        
+        return UIImage(cgImage: cgImage)
     }
     
     // MARK: Bitmask helper methods

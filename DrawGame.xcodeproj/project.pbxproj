@@ -27,8 +27,8 @@
 		73D5660E1FC3CF940022F93C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5660D1FC3CF940022F93C /* Api.swift */; };
 		73D566101FC3CFE40022F93C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5660F1FC3CFE40022F93C /* Game.swift */; };
 		73D566161FC3D19A0022F93C /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D566151FC3D19A0022F93C /* Pixel.swift */; };
-		73D566181FC3D22E0022F93C /* PixelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D566171FC3D22E0022F93C /* PixelRow.swift */; };
 		73D5661A1FC3D3EF0022F93C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D566191FC3D3EF0022F93C /* Player.swift */; };
+		73D5661D1FC3E8FC0022F93C /* AttributedStringMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5661C1FC3E8FC0022F93C /* AttributedStringMaker.swift */; };
 		CF51094E399BC82DBEBD0E0D /* Pods_DrawGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,8 +56,8 @@
 		73D5660D1FC3CF940022F93C /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		73D5660F1FC3CFE40022F93C /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		73D566151FC3D19A0022F93C /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
-		73D566171FC3D22E0022F93C /* PixelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelRow.swift; sourceTree = "<group>"; };
 		73D566191FC3D3EF0022F93C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		73D5661C1FC3E8FC0022F93C /* AttributedStringMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringMaker.swift; sourceTree = "<group>"; };
 		A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.debug.xcconfig"; sourceTree = "<group>"; };
 		A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +99,6 @@
 				73D5660F1FC3CFE40022F93C /* Game.swift */,
 				73D566191FC3D3EF0022F93C /* Player.swift */,
 				73D565FE1FC3CA8E0022F93C /* Drawing.swift */,
-				73D566171FC3D22E0022F93C /* PixelRow.swift */,
 				73D566151FC3D19A0022F93C /* Pixel.swift */,
 			);
 			path = Model;
@@ -156,6 +155,7 @@
 			children = (
 				73A612BE1FA561CD000F2A10 /* AppDelegate.swift */,
 				73A7F0891FA6385D00BD24BB /* Theme.swift */,
+				73D5661B1FC3E8E90022F93C /* Utilities */,
 				739E3F141FC3C20E003D40B0 /* Extensions */,
 				732509011FA5B4710013BDB6 /* Views */,
 				732509001FA5B4640013BDB6 /* Model */,
@@ -187,11 +187,19 @@
 		73D566061FC3CD0E0022F93C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				73D5660D1FC3CF940022F93C /* Api.swift */,
 				73D566071FC3CD270022F93C /* ApiRequest.swift */,
 				73D5660B1FC3CEAB0022F93C /* ApiEndpoint.swift */,
-				73D5660D1FC3CF940022F93C /* Api.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		73D5661B1FC3E8E90022F93C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				73D5661C1FC3E8FC0022F93C /* AttributedStringMaker.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		9945FC28A28BC3124C1EE008 /* Pods */ = {
@@ -344,7 +352,7 @@
 				73D5661A1FC3D3EF0022F93C /* Player.swift in Sources */,
 				73A7F08A1FA6385D00BD24BB /* Theme.swift in Sources */,
 				73D5660C1FC3CEAB0022F93C /* ApiEndpoint.swift in Sources */,
-				73D566181FC3D22E0022F93C /* PixelRow.swift in Sources */,
+				73D5661D1FC3E8FC0022F93C /* AttributedStringMaker.swift in Sources */,
 				73D566031FC3CAEB0022F93C /* DataModel.swift in Sources */,
 				73D566081FC3CD270022F93C /* ApiRequest.swift in Sources */,
 				73A7F0941FA6703B00BD24BB /* BrushCollectionViewCell.swift in Sources */,

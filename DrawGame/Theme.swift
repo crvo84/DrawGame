@@ -6,9 +6,9 @@ import UIKit
 
 struct Theme {
     struct Colors {
-        static let main: UIColor = .green
+        static let main: UIColor = .orange
         static let primaryText: UIColor = .black
-        static let background: UIColor = .darkGray
+        static let background: UIColor = .white
     }
     
 //    static func image(asset: ImageAsset) -> UIImage {

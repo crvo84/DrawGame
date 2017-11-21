@@ -10,9 +10,55 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    fileprivate enum GameState {
+        case guess, draw
+    }
+    
+    fileprivate struct Geometry {
+        struct WordLabel {
+            static let topOffset: CGFloat = 20.0
+            static let horizontalInset: CGFloat = 20.0
+            static let fontSize: CGFloat = 18.0
+        }
+        
+        struct DrawView {
+            static let topOffset: CGFloat = 20.0
+            static let width: Int = 256
+            static let height: Int = 256
+            static let shadowOffset = CGSize(width: 2, height: 2)
+            static let shadowRadius: CGFloat = 2.0
+            static let shadowOpacity: Float = 0.5
+        }
+        
+        struct PaletteView {
+            static let topOffset: CGFloat = 20.0
+            static let height: CGFloat = 60.0
+        }
+        
+        struct BrushView {
+            static let topOffset: CGFloat = 8.0
+            static let height: CGFloat = 60.0
+        }
+    }
+    
+    fileprivate struct Colors {
+        static let wordLabel: UIColor = Theme.Colors.main
+    }
+    
+    fileprivate let wordLabel = UILabel()
     fileprivate let drawView = DrawView()
     fileprivate let paletteView = PaletteView()
     fileprivate let brushesView = BrushesView()
+    
+    fileprivate let game: Game
+    fileprivate var gameState: GameState
+    
+    init(game: Game) {
+        self.game = game
+        self.gameState = game.playerBId == nil ? .draw : .guess
+        
+        super.init(nibName: nil, bundle: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,19 +69,34 @@ class GameViewController: UIViewController {
     fileprivate func initialSetup() {
         view.backgroundColor = Theme.Colors.background
         
+        /* Word Label */
+        view.addSubview(wordLabel)
+        wordLabel.numberOfLines = 1
+        wordLabel.adjustsFontSizeToFitWidth = true
+        wordLabel.minimumScaleFactor = 0.6
+        wordLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(Geometry.WordLabel.topOffset)
+            make.left.right.equalToSuperview().inset(Geometry.WordLabel.horizontalInset)
+        }
+        
         // DRAW VIEW
         view.addSubview(drawView)
         drawView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20.0)
-            make.height.equalTo(drawView.snp.width)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(Geometry.DrawView.topOffset)
+            make.width.equalTo(Geometry.drawViewSize.width)
+            make.height.equalTo(Geometry.drawViewSize.height)
+            make.centerX.equalToSuperview()
         }
+        drawView.layer.masksToBounds = false
+        drawView.layer.shadowOffset = Geometry.drawViewShadowOffset
+        drawView.layer.shadowRadius = Geometry.drawViewShadowRadius
+        drawView.layer.shadowOpacity = Geometry.drawViewShadowOpacity
         
         // PALETTE VIEW
         view.addSubview(paletteView)
         paletteView.snp.makeConstraints { make in
-            make.top.equalTo(drawView.snp.bottom).offset(8.0)
-            make.height.equalTo(60)
+            make.top.equalTo(drawView.snp.bottom).offset(Geometry.drawViewTopOffset)
+            make.width.equalTo(Geometry.drawViewSize.)
             make.left.right.equalToSuperview()
         }
         paletteView.delegate = self
@@ -52,6 +113,33 @@ class GameViewController: UIViewController {
         brushesView.delegate = self
         brushesView.dataSource = self
         brushesView.reloadData()
+    }
+    
+    fileprivate func updateUI() {
+        resetUI()
+        
+        wordLabel.attributedText = AttributedStringMake { (attrs, ctx) in
+            attrs.font = UIFont.systemFont(ofSize: Geometry.WordLabel.fontSize)
+            attrs.foregroundColor = Colors.wordLabel
+            attrs.alignment = .center
+            switch gameState {
+            case .guess:
+                ctx.append("?")
+            case .draw:
+                ctx.append(game.drawing.word)
+            }
+        }
+        
+        drawView.isDrawingEnabled = gameState == .draw
+        if gameState == .guess {
+            // auto draw on canvas
+            
+        }
+    }
+    
+    fileprivate func resetUI() {
+        drawView.reset()
+        wordLabel.text = nil
     }
 }
 

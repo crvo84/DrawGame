@@ -33,6 +33,8 @@ class DrawView: UIView {
     var brushColor: UIColor = Default.Color.brush
     var brushWidth: CGFloat = Default.Geometry.brushWidth
     
+    var isDrawingEnabled = true
+    
     /* Initialization */
     
     override init(frame: CGRect) {
@@ -76,6 +78,8 @@ class DrawView: UIView {
     /* Drawing */
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDrawingEnabled else { return }
+        
         swiped = false
         if let touch = touches.first {
             lastPoint = touch.location(in: self)
@@ -83,6 +87,8 @@ class DrawView: UIView {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDrawingEnabled else { return }
+        
         swiped = true
         if let touch = touches.first {
             let currentPoint = touch.location(in: self)
@@ -93,6 +99,8 @@ class DrawView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDrawingEnabled else { return }
+        
         if !swiped {
             // draw single point
             drawLine(from: lastPoint, to: lastPoint)

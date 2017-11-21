@@ -13,3 +13,16 @@ extension Pixel {
         case b
     }
 }
+
+extension Pixel {
+    var pixelData: PixelData {
+        return PixelData(a: 255, r: r, g: g, b: b)
+    }
+}
+
+struct PixelData {
+    var a: UInt8
+    var r: UInt8
+    var g: UInt8
+    var b: UInt8
+}

@@ -14,7 +14,7 @@ final class RootViewController: UIViewController {
         static let fadeInOutContentViewController: TimeInterval = 0.4
     }
     
-    enum MagmaContentViewControllerType {
+    enum ContentViewControllerType {
         case landing
     }
     
@@ -61,7 +61,7 @@ final class RootViewController: UIViewController {
         presentContentViewController(type: .landing)
     }
     
-    func presentContentViewController(type: MagmaContentViewControllerType) {
+    func presentContentViewController(type: ContentViewControllerType) {
         switch type {
         case .landing:
             let gameViewController = GameViewController()

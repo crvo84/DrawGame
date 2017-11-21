@@ -3,30 +3,30 @@ import UIKit
 final class AttributedStringMakerAttributes {
     
     // Dictionary
-    fileprivate(set) var dictionaryRepresentation = [String: AnyObject]()
+    fileprivate(set) var dictionaryRepresentation = [NSAttributedStringKey: AnyObject]()
     
     // NSFontAttributeName
     var font: UIFont? {
         get {
-            return self.dictionaryRepresentation[NSFontAttributeName] as? UIFont
+            return self.dictionaryRepresentation[.font] as? UIFont
         }
         set {
-            self.dictionaryRepresentation[NSFontAttributeName] = newValue
+            self.dictionaryRepresentation[.font] = newValue
         }
     }
     
     // NSParagraphStyleAttributeName
     fileprivate(set) var paragraphStyle: NSMutableParagraphStyle {
         get {
-            var ps = self.dictionaryRepresentation[NSParagraphStyleAttributeName] as? NSMutableParagraphStyle
+            var ps = self.dictionaryRepresentation[.paragraphStyle] as? NSMutableParagraphStyle
             if ps == nil {
                 ps = NSMutableParagraphStyle()
-                self.dictionaryRepresentation[NSParagraphStyleAttributeName] = ps
+                self.dictionaryRepresentation[.paragraphStyle] = ps
             }
             return ps!
         }
         set {
-            self.dictionaryRepresentation[NSParagraphStyleAttributeName] = newValue.mutableCopy() as AnyObject?
+            self.dictionaryRepresentation[.paragraphStyle] = newValue.mutableCopy() as AnyObject?
         }
     }
     var lineSpacing: Double {
@@ -153,20 +153,20 @@ final class AttributedStringMakerAttributes {
     // NSForegroundColorAttributeName
     var foregroundColor: UIColor? {
         get {
-            return self.dictionaryRepresentation[NSForegroundColorAttributeName] as? UIColor
+            return self.dictionaryRepresentation[.foregroundColor] as? UIColor
         }
         set {
-            self.dictionaryRepresentation[NSForegroundColorAttributeName] = newValue
+            self.dictionaryRepresentation[.foregroundColor] = newValue
         }
     }
     
     // NSBackgroundColorAttributeName
     var backgroundColor: UIColor? {
         get {
-            return self.dictionaryRepresentation[NSBackgroundColorAttributeName] as? UIColor
+            return self.dictionaryRepresentation[.backgroundColor] as? UIColor
         }
         set {
-            self.dictionaryRepresentation[NSBackgroundColorAttributeName] = newValue
+            self.dictionaryRepresentation[.backgroundColor] = newValue
         }
     }
     
@@ -178,16 +178,16 @@ final class AttributedStringMakerAttributes {
     }
     var ligature: NSLigature? {
         get {
-            if let rawValue = (self.dictionaryRepresentation[NSLigatureAttributeName] as? NSNumber)?.int32Value {
+            if let rawValue = (self.dictionaryRepresentation[.ligature] as? NSNumber)?.int32Value {
                 return NSLigature(rawValue: Int(rawValue))
             }
             return nil
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSLigatureAttributeName] = NSNumber(value: newValue!.rawValue as Int)
+                self.dictionaryRepresentation[.ligature] = NSNumber(value: newValue!.rawValue as Int)
             } else {
-                self.dictionaryRepresentation[NSLigatureAttributeName] = nil
+                self.dictionaryRepresentation[.ligature] = nil
             }
         }
     }
@@ -195,13 +195,13 @@ final class AttributedStringMakerAttributes {
     // NSKernAttributeName
     var kern: Double? {
         get {
-            return (self.dictionaryRepresentation[NSKernAttributeName] as? NSNumber)?.doubleValue
+            return (self.dictionaryRepresentation[.kern] as? NSNumber)?.doubleValue
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSKernAttributeName] = NSNumber(value: newValue! as Double)
+                self.dictionaryRepresentation[.kern] = NSNumber(value: newValue! as Double)
             } else {
-                self.dictionaryRepresentation[NSKernAttributeName] = nil
+                self.dictionaryRepresentation[.kern] = nil
             }
         }
     }
@@ -209,16 +209,16 @@ final class AttributedStringMakerAttributes {
     // NSStrikethroughStyleAttributeName
     var strikethroughStyle: NSUnderlineStyle? {
         get {
-            if let rawValue = (self.dictionaryRepresentation[NSStrikethroughStyleAttributeName] as? NSNumber)?.int32Value {
+            if let rawValue = (self.dictionaryRepresentation[.strikethroughStyle] as? NSNumber)?.int32Value {
                 return NSUnderlineStyle(rawValue: Int(rawValue))
             }
             return nil
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSStrikethroughStyleAttributeName] = NSNumber(value: newValue!.rawValue as Int)
+                self.dictionaryRepresentation[.strikethroughStyle] = NSNumber(value: newValue!.rawValue as Int)
             } else {
-                self.dictionaryRepresentation[NSStrikethroughStyleAttributeName] = nil
+                self.dictionaryRepresentation[.strikethroughStyle] = nil
             }
         }
     }
@@ -226,16 +226,16 @@ final class AttributedStringMakerAttributes {
     // NSUnderlineStyleAttributeName
     var underlineStyle: NSUnderlineStyle? {
         get {
-            if let rawValue = (self.dictionaryRepresentation[NSUnderlineStyleAttributeName] as? NSNumber)?.int32Value {
+            if let rawValue = (self.dictionaryRepresentation[.underlineStyle] as? NSNumber)?.int32Value {
                 return NSUnderlineStyle(rawValue: Int(rawValue))
             }
             return nil
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSUnderlineStyleAttributeName] = NSNumber(value: newValue!.rawValue as Int)
+                self.dictionaryRepresentation[.underlineStyle] = NSNumber(value: newValue!.rawValue as Int)
             } else {
-                self.dictionaryRepresentation[NSUnderlineStyleAttributeName] = nil
+                self.dictionaryRepresentation[.underlineStyle] = nil
             }
         }
     }
@@ -246,13 +246,13 @@ final class AttributedStringMakerAttributes {
     // NSStrokeWidthAttributeName
     var strokeWidth: Double? {
         get {
-            return (self.dictionaryRepresentation[NSStrokeWidthAttributeName] as? NSNumber)?.doubleValue
+            return (self.dictionaryRepresentation[.strokeWidth] as? NSNumber)?.doubleValue
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSStrokeWidthAttributeName] = NSNumber(value: newValue! as Double)
+                self.dictionaryRepresentation[.strokeWidth] = NSNumber(value: newValue! as Double)
             } else {
-                self.dictionaryRepresentation[NSStrokeWidthAttributeName] = nil
+                self.dictionaryRepresentation[.strokeWidth] = nil
             }
         }
     }
@@ -260,53 +260,53 @@ final class AttributedStringMakerAttributes {
     // NSShadowAttributeName
     var shadow: NSShadow? {
         get {
-            return self.dictionaryRepresentation[NSShadowAttributeName] as? NSShadow
+            return self.dictionaryRepresentation[.shadow] as? NSShadow
         }
         set {
-            self.dictionaryRepresentation[NSShadowAttributeName] = newValue
+            self.dictionaryRepresentation[.shadow] = newValue
         }
     }
     
     // NSTextEffectAttributeName
     var textEffect: String? {
         get {
-            return self.dictionaryRepresentation[NSTextEffectAttributeName] as? String
+            return self.dictionaryRepresentation[.textEffect] as? String
         }
         set {
-            self.dictionaryRepresentation[NSTextEffectAttributeName] = newValue as AnyObject?
+            self.dictionaryRepresentation[.textEffect] = newValue as AnyObject?
         }
     }
     
     // NSAttachmentAttributeName
     var attachment: NSTextAttachment? {
         get {
-            return self.dictionaryRepresentation[NSAttachmentAttributeName] as? NSTextAttachment
+            return self.dictionaryRepresentation[.attachment] as? NSTextAttachment
         }
         set {
-            self.dictionaryRepresentation[NSAttachmentAttributeName] = newValue
+            self.dictionaryRepresentation[.attachment] = newValue
         }
     }
     
     // NSLinkAttributeName
     var link: URL? {
         get {
-            return self.dictionaryRepresentation[NSLinkAttributeName] as? URL
+            return self.dictionaryRepresentation[.link] as? URL
         }
         set {
-            self.dictionaryRepresentation[NSLinkAttributeName] = newValue as AnyObject?
+            self.dictionaryRepresentation[.link] = newValue as AnyObject?
         }
     }
     
     // NSBaselineOffsetAttributeName
     var baselineOffset: Double? {
         get {
-            return (self.dictionaryRepresentation[NSBaselineOffsetAttributeName] as? NSNumber)?.doubleValue
+            return (self.dictionaryRepresentation[.baselineOffset] as? NSNumber)?.doubleValue
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSBaselineOffsetAttributeName] = NSNumber(value: newValue! as Double)
+                self.dictionaryRepresentation[.baselineOffset] = NSNumber(value: newValue! as Double)
             } else {
-                self.dictionaryRepresentation[NSBaselineOffsetAttributeName] = nil
+                self.dictionaryRepresentation[.baselineOffset] = nil
             }
         }
     }
@@ -314,33 +314,33 @@ final class AttributedStringMakerAttributes {
     // NSUnderlineColorAttributeName
     var underlineColor: UIColor? {
         get {
-            return self.dictionaryRepresentation[NSUnderlineColorAttributeName] as? UIColor
+            return self.dictionaryRepresentation[.underlineColor] as? UIColor
         }
         set {
-            self.dictionaryRepresentation[NSUnderlineColorAttributeName] = newValue
+            self.dictionaryRepresentation[.underlineColor] = newValue
         }
     }
     
     // NSStrikethroughColorAttributeName
     var strikethroughColor: UIColor? {
         get {
-            return self.dictionaryRepresentation[NSStrikethroughColorAttributeName] as? UIColor
+            return self.dictionaryRepresentation[.strikethroughColor] as? UIColor
         }
         set {
-            self.dictionaryRepresentation[NSStrikethroughColorAttributeName] = newValue
+            self.dictionaryRepresentation[.strikethroughColor] = newValue
         }
     }
     
     // NSObliquenessAttributeName
     var obliqueness: Double? {
         get {
-            return (self.dictionaryRepresentation[NSObliquenessAttributeName] as? NSNumber)?.doubleValue
+            return (self.dictionaryRepresentation[.obliqueness] as? NSNumber)?.doubleValue
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSObliquenessAttributeName] = NSNumber(value: newValue! as Double)
+                self.dictionaryRepresentation[.obliqueness] = NSNumber(value: newValue! as Double)
             } else {
-                self.dictionaryRepresentation[NSObliquenessAttributeName] = nil
+                self.dictionaryRepresentation[.obliqueness] = nil
             }
         }
     }
@@ -348,13 +348,13 @@ final class AttributedStringMakerAttributes {
     // NSExpansionAttributeName
     var expansion: Double? {
         get {
-            return (self.dictionaryRepresentation[NSExpansionAttributeName] as? NSNumber)?.doubleValue
+            return (self.dictionaryRepresentation[.expansion] as? NSNumber)?.doubleValue
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSExpansionAttributeName] = NSNumber(value: newValue! as Double)
+                self.dictionaryRepresentation[.expansion] = NSNumber(value: newValue! as Double)
             } else {
-                self.dictionaryRepresentation[NSExpansionAttributeName] = nil
+                self.dictionaryRepresentation[.expansion] = nil
             }
         }
     }
@@ -369,23 +369,29 @@ final class AttributedStringMakerAttributes {
     }
     var verticalGlyphForm: NSVerticalGlyphForm? {
         get {
-            if let rawValue = (self.dictionaryRepresentation[NSVerticalGlyphFormAttributeName] as? NSNumber)?.int32Value {
+            if let rawValue = (self.dictionaryRepresentation[.verticalGlyphForm] as? NSNumber)?.int32Value {
                 return NSVerticalGlyphForm(rawValue: Int(rawValue))
             }
             return nil
         }
         set {
             if newValue != nil {
-                self.dictionaryRepresentation[NSVerticalGlyphFormAttributeName] = NSNumber(value: newValue!.rawValue as Int)
+                self.dictionaryRepresentation[.verticalGlyphForm] = NSNumber(value: newValue!.rawValue as Int)
             } else {
-                self.dictionaryRepresentation[NSVerticalGlyphFormAttributeName] = nil
+                self.dictionaryRepresentation[.verticalGlyphForm] = nil
             }
         }
     }
     
     init(dictionaryRepresentation: [String: AnyObject]? = nil) {
-        if dictionaryRepresentation != nil {
-            self.dictionaryRepresentation = dictionaryRepresentation!
+        if let dictionaryRepresentation = dictionaryRepresentation {
+            
+            var keyDictionaryRepresentation = [NSAttributedStringKey: AnyObject]()
+            for (key, value) in dictionaryRepresentation {
+                keyDictionaryRepresentation[NSAttributedStringKey(rawValue: key)] = value
+            }
+            
+            self.dictionaryRepresentation = keyDictionaryRepresentation
         }
     }
     
@@ -394,7 +400,7 @@ final class AttributedStringMakerAttributes {
 final class AttributedStringMakerContext {
     fileprivate let attributedString = NSMutableAttributedString()
     fileprivate let attributes = AttributedStringMakerAttributes()
-    fileprivate var attributesStack = [[String: AnyObject]]()
+    fileprivate var attributesStack = [[NSAttributedStringKey: AnyObject]]()
     
     func append(_ string: String?) {
         if string != nil {
@@ -420,7 +426,7 @@ final class AttributedStringMakerContext {
     }
 }
 
-func AttributedStringAttributesMake(_ closure: (_ attrs: AttributedStringMakerAttributes) -> Void) -> [String: AnyObject] {
+func AttributedStringAttributesMake(_ closure: (_ attrs: AttributedStringMakerAttributes) -> Void) -> [NSAttributedStringKey: AnyObject] {
     let ctx = AttributedStringMakerContext()
     closure(ctx.attributes)
     return ctx.attributes.dictionaryRepresentation

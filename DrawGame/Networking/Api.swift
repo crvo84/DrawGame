@@ -38,9 +38,7 @@ struct Api {
                 var bodyParams = [String : AnyObject]()
                 bodyParams["userId"] = udid as AnyObject
                 bodyParams["answeredCorrectly"] = answeredCorrectly as AnyObject
-                if let drawing = newDrawing {
-                    bodyParams["drawing"] = drawing as AnyObject
-                }
+                bodyParams["drawing"] = newDrawing as AnyObject
 
                 return ApiRequest(method: .put, path: "/games/\(gameId)", bodyParams: bodyParams)
             }

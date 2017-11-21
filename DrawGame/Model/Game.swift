@@ -5,7 +5,7 @@ struct Game: DataModel {
     let playerAId: String
     let playerBId: String?
     let drawing: Drawing
-    let isPlayerATurnToGuess: Bool
+    let isPlayerATurn: Bool
     let playerAScore: Int
     let playerBScore: Int
 }

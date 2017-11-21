@@ -16,9 +16,9 @@ class GameViewController: UIViewController {
     
     fileprivate struct Geometry {
         struct WordLabel {
-            static let topOffset: CGFloat = 20.0
+            static let topOffset: CGFloat = 24.0
             static let horizontalInset: CGFloat = 20.0
-            static let fontSize: CGFloat = 18.0
+            static let fontSize: CGFloat = 24.0
         }
         
         struct DrawView {
@@ -40,7 +40,7 @@ class GameViewController: UIViewController {
     }
     
     fileprivate struct Colors {
-        static let wordLabel: UIColor = Theme.Colors.main
+        static let wordLabel: UIColor = Theme.Colors.primaryText
         static let drawViewBorder: UIColor = Theme.Colors.main
     }
     
@@ -167,6 +167,15 @@ class GameViewController: UIViewController {
             paletteView.isHidden = false
             brushesView.isHidden = false
             guessImageView.isHidden = true
+        }
+        
+        switch gameState {
+        case .guess:
+            title = "Adivinando"
+        case .draw:
+            title = "Dibujando"
+        case .wait:
+            title = "Esperando"
         }
     }
     

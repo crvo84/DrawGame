@@ -23,7 +23,7 @@ class BrushesView: UIView {
     }
     
     fileprivate struct Colors {
-        static let backgroundColor: UIColor = .white
+        static let backgroundColor: UIColor = .clear
         static let defaultColor: UIColor = .black
     }
     
@@ -62,7 +62,10 @@ class BrushesView: UIView {
     // MARK: - Setup
     
     fileprivate func initialSetup() {
+        isOpaque = false
+        backgroundColor = Colors.backgroundColor
         addSubview(collectionView)
+        collectionView.isOpaque = false
         collectionView.backgroundColor = Colors.backgroundColor
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

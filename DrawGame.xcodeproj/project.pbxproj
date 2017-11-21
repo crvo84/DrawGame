@@ -29,6 +29,7 @@
 		73D566161FC3D19A0022F93C /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D566151FC3D19A0022F93C /* Pixel.swift */; };
 		73D5661A1FC3D3EF0022F93C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D566191FC3D3EF0022F93C /* Player.swift */; };
 		73D5661D1FC3E8FC0022F93C /* AttributedStringMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5661C1FC3E8FC0022F93C /* AttributedStringMaker.swift */; };
+		73D5661F1FC416520022F93C /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5661E1FC416520022F93C /* WordManager.swift */; };
 		CF51094E399BC82DBEBD0E0D /* Pods_DrawGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		73D566151FC3D19A0022F93C /* Pixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		73D566191FC3D3EF0022F93C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		73D5661C1FC3E8FC0022F93C /* AttributedStringMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringMaker.swift; sourceTree = "<group>"; };
+		73D5661E1FC416520022F93C /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
 		A12D945A50EA8BAE0EA1CF9D /* Pods-DrawGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.debug.xcconfig"; sourceTree = "<group>"; };
 		A781E34166FF3EE09E9F9D15 /* Pods-DrawGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawGame/Pods-DrawGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,7 @@
 				73D566191FC3D3EF0022F93C /* Player.swift */,
 				73D565FE1FC3CA8E0022F93C /* Drawing.swift */,
 				73D566151FC3D19A0022F93C /* Pixel.swift */,
+				73D5661E1FC416520022F93C /* WordManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				73A7F08A1FA6385D00BD24BB /* Theme.swift in Sources */,
 				73D5660C1FC3CEAB0022F93C /* ApiEndpoint.swift in Sources */,
 				73D5661D1FC3E8FC0022F93C /* AttributedStringMaker.swift in Sources */,
+				73D5661F1FC416520022F93C /* WordManager.swift in Sources */,
 				73D566031FC3CAEB0022F93C /* DataModel.swift in Sources */,
 				73D566081FC3CD270022F93C /* ApiRequest.swift in Sources */,
 				73A7F0941FA6703B00BD24BB /* BrushCollectionViewCell.swift in Sources */,

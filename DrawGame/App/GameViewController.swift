@@ -11,7 +11,7 @@ import UIKit
 class GameViewController: UIViewController {
     
     fileprivate enum GameState {
-        case guess, draw
+        case guess, draw, wait
     }
     
     fileprivate struct Geometry {
@@ -25,9 +25,7 @@ class GameViewController: UIViewController {
             static let topOffset: CGFloat = 20.0
             static let width: Int = 256
             static let height: Int = 256
-            static let shadowOffset = CGSize(width: 2, height: 2)
-            static let shadowRadius: CGFloat = 2.0
-            static let shadowOpacity: Float = 0.5
+            static let borderWidth: CGFloat = 2.0
         }
         
         struct PaletteView {
@@ -43,6 +41,7 @@ class GameViewController: UIViewController {
     
     fileprivate struct Colors {
         static let wordLabel: UIColor = Theme.Colors.main
+        static let drawViewBorder: UIColor = Theme.Colors.main
     }
     
     fileprivate let wordLabel = UILabel()
@@ -56,8 +55,19 @@ class GameViewController: UIViewController {
     
     init(game: Game) {
         self.game = game
-        self.gameState = game.playerBId == nil ? .draw : .guess
+        let iAmPlayerA = Api.udid == game.playerAId
         
+        if let _ = game.playerBId {
+            if game.isPlayerATurn {
+                self.gameState = iAmPlayerA ? .guess : .wait
+            } else {
+                self.gameState = iAmPlayerA ? .wait : .guess
+            }
+        } else {
+            // No playerBId, so I must be player A then
+            self.gameState = game.isPlayerATurn ? .draw : .wait
+        }
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -74,14 +84,14 @@ class GameViewController: UIViewController {
 
     fileprivate func initialSetup() {
         view.backgroundColor = Theme.Colors.background
-        
+
         /* Word Label */
         view.addSubview(wordLabel)
         wordLabel.numberOfLines = 1
         wordLabel.adjustsFontSizeToFitWidth = true
         wordLabel.minimumScaleFactor = 0.6
         wordLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(Geometry.WordLabel.topOffset)
+            make.topMargin.equalToSuperview().offset(Geometry.WordLabel.topOffset)
             make.left.right.equalToSuperview().inset(Geometry.WordLabel.horizontalInset)
         }
         
@@ -94,9 +104,8 @@ class GameViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         drawView.layer.masksToBounds = false
-        drawView.layer.shadowOffset = Geometry.DrawView.shadowOffset
-        drawView.layer.shadowRadius = Geometry.DrawView.shadowRadius
-        drawView.layer.shadowOpacity = Geometry.DrawView.shadowOpacity
+        drawView.layer.borderColor = Colors.drawViewBorder.cgColor
+        drawView.layer.borderWidth = Geometry.DrawView.borderWidth
         
         /* Guess Image View */
         view.addSubview(guessImageView)
@@ -118,7 +127,7 @@ class GameViewController: UIViewController {
         /* Brushes View */
         view.addSubview(brushesView)
         brushesView.snp.makeConstraints { make in
-            make.top.equalTo(paletteView).offset(Geometry.BrushView.topOffset)
+            make.top.equalTo(paletteView.snp.bottom).offset(Geometry.BrushView.topOffset)
             make.left.right.equalToSuperview()
             make.height.equalTo(Geometry.BrushView.height)
         }
@@ -137,20 +146,27 @@ class GameViewController: UIViewController {
             switch gameState {
             case .guess:
                 ctx.append("?")
-            case .draw:
+            case .draw, .wait:
                 ctx.append(game.drawing.word)
             }
         }
         
-        drawView.isHidden = gameState == .guess
-        paletteView.isHidden = gameState == .guess
-        brushesView.isHidden = gameState == .guess
-        guessImageView.isHidden = gameState == .draw
-        
-        if gameState == .guess {
+        switch gameState {
+        case .guess, .wait:
+            drawView.isHidden = true
+            paletteView.isHidden = true
+            brushesView.isHidden = true
+            guessImageView.isHidden = false
+            
             // auto draw on canvas
             guessImageView.image = game.drawing.image
             guessImageView.contentMode = .scaleAspectFit
+            
+        case .draw:
+            drawView.isHidden = false
+            paletteView.isHidden = false
+            brushesView.isHidden = false
+            guessImageView.isHidden = true
         }
     }
     

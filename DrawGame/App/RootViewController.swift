@@ -64,7 +64,7 @@ final class RootViewController: UIViewController {
     func presentContentViewController(type: ContentViewControllerType) {
         switch type {
         case .landing:
-            let testGame = Game.forTest(type: .justCreatedByMe)
+            let testGame = Game.forTest(type: .beingCreatedByMe)
             let gameViewController = GameViewController(game: testGame)
             let navigationController = UINavigationController(rootViewController: gameViewController)
             contentViewController = navigationController
@@ -72,10 +72,9 @@ final class RootViewController: UIViewController {
     }
 }
 
-
-
 extension Game {
     enum TestGameType {
+        case beingCreatedByMe
         case justCreatedByMe
         case myTurnToGuess(iAmPlayerA: Bool)
         case notMyTurn(iAmPlayerA: Bool)
@@ -100,10 +99,16 @@ extension Game {
         let playerAScore: Int
         let playerBScore: Int
         switch type {
-        case .justCreatedByMe:
+        case .beingCreatedByMe: // my turn
             playerAId = Api.udid
             playerBId = nil
             isPlayerATurn = true
+            playerAScore = 0
+            playerBScore = 0
+        case .justCreatedByMe: // not my turn
+            playerAId = Api.udid
+            playerBId = nil
+            isPlayerATurn = false
             playerAScore = 0
             playerBScore = 0
         case .myTurnToGuess(let iAmPlayerA):

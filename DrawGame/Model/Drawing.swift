@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct Drawing: DataModel {
     let pixels: [Pixel]
@@ -18,6 +18,8 @@ extension Drawing {
 
 extension Drawing {
     var image: UIImage? {
-        
+        let pixelDataArray = pixels.map { $0.pixelData }
+        return UIImage.from(pixels: pixelDataArray,
+                            width: width, height: height)
     }
 }

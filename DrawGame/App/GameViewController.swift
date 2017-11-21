@@ -47,6 +47,7 @@ class GameViewController: UIViewController {
     
     fileprivate let wordLabel = UILabel()
     fileprivate let drawView = DrawView()
+    fileprivate let guessImageView = UIImageView()
     fileprivate let paletteView = PaletteView()
     fileprivate let brushesView = BrushesView()
     
@@ -59,11 +60,16 @@ class GameViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialSetup()
+        updateUI()
     }
 
     fileprivate func initialSetup() {
@@ -79,36 +85,42 @@ class GameViewController: UIViewController {
             make.left.right.equalToSuperview().inset(Geometry.WordLabel.horizontalInset)
         }
         
-        // DRAW VIEW
+        /* Draw View */
         view.addSubview(drawView)
         drawView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(Geometry.DrawView.topOffset)
-            make.width.equalTo(Geometry.drawViewSize.width)
-            make.height.equalTo(Geometry.drawViewSize.height)
+            make.top.equalTo(wordLabel.snp.bottom).offset(Geometry.DrawView.topOffset)
+            make.width.equalTo(Geometry.DrawView.width)
+            make.height.equalTo(Geometry.DrawView.height)
             make.centerX.equalToSuperview()
         }
         drawView.layer.masksToBounds = false
-        drawView.layer.shadowOffset = Geometry.drawViewShadowOffset
-        drawView.layer.shadowRadius = Geometry.drawViewShadowRadius
-        drawView.layer.shadowOpacity = Geometry.drawViewShadowOpacity
+        drawView.layer.shadowOffset = Geometry.DrawView.shadowOffset
+        drawView.layer.shadowRadius = Geometry.DrawView.shadowRadius
+        drawView.layer.shadowOpacity = Geometry.DrawView.shadowOpacity
         
-        // PALETTE VIEW
+        /* Guess Image View */
+        view.addSubview(guessImageView)
+        guessImageView.snp.makeConstraints { make in
+            make.edges.equalTo(drawView)
+        }
+        
+        /* Palette View */
         view.addSubview(paletteView)
         paletteView.snp.makeConstraints { make in
-            make.top.equalTo(drawView.snp.bottom).offset(Geometry.drawViewTopOffset)
-            make.width.equalTo(Geometry.drawViewSize.)
+            make.top.equalTo(drawView.snp.bottom).offset(Geometry.PaletteView.topOffset)
             make.left.right.equalToSuperview()
+            make.height.equalTo(Geometry.PaletteView.height)
         }
         paletteView.delegate = self
         paletteView.dataSource = self
         paletteView.reloadData()
         
-        // BRUSHES VIEW
+        /* Brushes View */
         view.addSubview(brushesView)
         brushesView.snp.makeConstraints { make in
-            make.top.equalTo(paletteView.snp.bottom).offset(4.0)
-            make.height.equalTo(60)
+            make.top.equalTo(paletteView).offset(Geometry.BrushView.topOffset)
             make.left.right.equalToSuperview()
+            make.height.equalTo(Geometry.BrushView.height)
         }
         brushesView.delegate = self
         brushesView.dataSource = self
@@ -130,10 +142,15 @@ class GameViewController: UIViewController {
             }
         }
         
-        drawView.isDrawingEnabled = gameState == .draw
+        drawView.isHidden = gameState == .guess
+        paletteView.isHidden = gameState == .guess
+        brushesView.isHidden = gameState == .guess
+        guessImageView.isHidden = gameState == .draw
+        
         if gameState == .guess {
             // auto draw on canvas
-            
+            guessImageView.image = game.drawing.image
+            guessImageView.contentMode = .scaleAspectFit
         }
     }
     

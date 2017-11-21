@@ -40,7 +40,7 @@ extension UIImage {
     
     // MARK: - Pixels -> UIImage
     
-    func getFrom(pixels: [PixelData], width: Int, height: Int) -> UIImage? {
+    static func from(pixels: [PixelData], width: Int, height: Int) -> UIImage? {
         guard pixels.count == width * height else { return nil } // invalid params
         
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()

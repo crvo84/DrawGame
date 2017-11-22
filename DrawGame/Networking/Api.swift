@@ -6,7 +6,7 @@ struct Api {
     
     // MARK: - GAME
     enum Games: ApiEndpoint {
-        case create(word: String, drawing: Drawing)
+        case create(drawing: Drawing)
         case getAll
         case getAvailable
         case endTurn(gameId: String, answeredCorrectly: Bool, newDrawing: Drawing)
@@ -14,10 +14,9 @@ struct Api {
         var request: ApiRequest {
             switch self {
                 
-            case .create(let word, let drawing):
+            case .create(let drawing):
                 var bodyParams = [String : AnyObject]()
                 bodyParams["userId"] = udid as AnyObject
-                bodyParams["word"] = word as AnyObject
                 if let drawing = drawing.encodeSingle() {
                     bodyParams["drawing"] = drawing as AnyObject
                 }
@@ -29,18 +28,18 @@ struct Api {
                                   URLParams: ["userId": udid as AnyObject])
                 
             case .getAvailable:
-                var bodyParams = [String : AnyObject]()
-                bodyParams["userId"] = udid as AnyObject
-                
-                return ApiRequest(method: .get, path: "/games")
+                return ApiRequest(method: .get, path: "/games/free",
+                                  URLParams: ["userId": udid as AnyObject])
                 
             case .endTurn(let gameId, let answeredCorrectly, let newDrawing):
                 var bodyParams = [String : AnyObject]()
                 bodyParams["userId"] = udid as AnyObject
                 bodyParams["answeredCorrectly"] = answeredCorrectly as AnyObject
                 bodyParams["drawing"] = newDrawing as AnyObject
+                bodyParams["gameId"] = gameId
+                
 
-                return ApiRequest(method: .put, path: "/games/\(gameId)", bodyParams: bodyParams)
+                return ApiRequest(method: .put, path: "/games", bodyParams: bodyParams)
             }
         }
     }

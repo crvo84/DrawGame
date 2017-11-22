@@ -56,8 +56,15 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate func initialSetup() {
+        view.backgroundColor = Theme.Colors.background
+        
         // Title
         title = "DrawGame"
+        
+        /* Refresh Button */
+        let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self,
+                                   action: #selector(refreshButtonPressed))
+        navigationItem.rightBarButtonItem = refreshItem
         
         // create game button
         view.addSubview(createGameButton)
@@ -135,6 +142,10 @@ class HomeViewController: UIViewController {
             self?.spinner.stopAnimating()
             self?.tableView.reloadData()
         }
+    }
+    
+    @objc fileprivate func refreshButtonPressed() {
+        updateUI()
     }
     
     @objc fileprivate func createGameButtonPressed() {

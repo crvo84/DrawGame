@@ -84,7 +84,7 @@ class GameViewController: UIViewController {
 
     fileprivate func initialSetup() {
         view.backgroundColor = Theme.Colors.background
-
+        
         /* Word Label */
         view.addSubview(wordLabel)
         wordLabel.numberOfLines = 1

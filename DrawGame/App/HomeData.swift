@@ -13,7 +13,13 @@ class HomeData {
         }
     }
     
-    static func findGame(completion: @espacing (Game?) -> ()) {
+    static func createGame(drawing: Drawing, completion: @escaping (Game?) -> ()) {
+        Api.Games.create(drawing: drawing).getSingle(type: Game.self) { game in
+            completion(game)
+        }
+    }
+    
+    static func findGame(completion: @escaping (Game?) -> ()) {
         Api.Games.getAvailable.getSingle(type: Game.self) { game in
             completion(game)
         }

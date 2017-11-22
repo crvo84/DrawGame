@@ -153,11 +153,13 @@ class HomeViewController: UIViewController {
     }
     
     @objc fileprivate func findGameButtonPressed() {
-        HomeData.findGame { game in
+        HomeData.findGame { [weak self] game in
             guard let game = game else {
                 // TODO: message, could not find game
+                return
             }
-            presentGameViewController(game: game)
+            self?.presentGameViewController(game: game)
+            self?.updateUI()
         }
     }
     
@@ -230,6 +232,19 @@ extension HomeViewController: UITableViewDelegate {
         default:
             return nil
         }
+    }
+}
+
+extension HomeViewController: GameViewControllerDelegate {
+    func didCreateNewGame(drawing: Drawing, gameViewController: GameViewController) {
+        spinner.startAnimating()
+        HomeData.createGame(drawing: drawing) { [weak self] game in
+            self?.updateUI()
+        }
+    }
+    
+    func didEndTurn(forGame: Game, answeredCorrectly: Bool, drawing: Drawing) {
+        // TODO:
     }
 }
 

@@ -4,7 +4,7 @@ import Alamofire
 struct ApiConstants {
     struct Url {
         static let scheme = "http"
-        static let host = ""//"-api-api-cojcvwx-1471092146.us-west-2.elb.amazonaws.com"
+        static let host = "localhost:8080/"//"-api-api-cojcvwx-1471092146.us-west-2.elb.amazonaws.com"
         static let basePath = ""
     }
 }

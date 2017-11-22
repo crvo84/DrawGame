@@ -28,7 +28,7 @@ struct Api {
                                   URLParams: ["userId": udid as AnyObject])
                 
             case .getAvailable:
-                return ApiRequest(method: .get, path: "/games/free",
+                return ApiRequest(method: .get, path: "/freegames",
                                   URLParams: ["userId": udid as AnyObject])
                 
             case .endTurn(let gameId, let answeredCorrectly, let newDrawing):
@@ -38,7 +38,6 @@ struct Api {
                 bodyParams["drawing"] = newDrawing as AnyObject
                 bodyParams["gameId"] = gameId
                 
-
                 return ApiRequest(method: .put, path: "/games", bodyParams: bodyParams)
             }
         }

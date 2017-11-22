@@ -9,6 +9,7 @@ class HomeViewController: UIViewController {
             static let horizontalInset: CGFloat = 20.0
             static let cornerRadius: CGFloat = 10.0
             static let borderWidth: CGFloat = 3.0
+            static let fontSize: CGFloat = 20.0
         }
         
         struct FindGameButton {
@@ -17,6 +18,7 @@ class HomeViewController: UIViewController {
             static let horizontalInset: CGFloat = 20.0
             static let cornerRadius: CGFloat = 10.0
             static let borderWidth: CGFloat = 3.0
+            static let fontSize: CGFloat = 20.0
         }
         
         struct TableView {
@@ -25,11 +27,14 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate struct Colors {
+        static let createGameButtonText = UIColor(red: 0.0, green: 0.10, blue: 0.05, alpha: 1.0)
         static let createGameButtonBackground = UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0)
-        static let createGameButtonBorder = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        static let createGameButtonBorder = UIColor(red: 0.0, green: 0.10, blue: 0.05, alpha: 1.0)
+        static let findGameButtonText = UIColor(red: 0.0, green: 0.05, blue: 0.1, alpha: 1.0)
         static let findGameButtonBackground = UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0)
-        static let findGameButtonBorder = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        static let findGameButtonBorder = UIColor(red: 0.0, green: 0.05, blue: 0.1, alpha: 1.0)
         static let spinner = Theme.Colors.main
+        static let background = Theme.Colors.background
     }
     
     fileprivate struct ReuseId {
@@ -41,15 +46,19 @@ class HomeViewController: UIViewController {
     fileprivate let createGameButton = UIButton()
     fileprivate let findGameButton = UIButton()
     fileprivate let tableView = UITableView()
-    fileprivate let let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    fileprivate let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initialSetup()
+        updateUI()
     }
     
     fileprivate func initialSetup() {
+        // Title
+        title = "DrawGame"
+        
         // create game button
         view.addSubview(createGameButton)
         createGameButton.backgroundColor = Colors.createGameButtonBackground
@@ -58,12 +67,20 @@ class HomeViewController: UIViewController {
         createGameButton.layer.cornerRadius = Geometry.CreateGameButton.cornerRadius
         createGameButton.layer.masksToBounds = true
         createGameButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(Geometry.CreateGameButton.topOffset)
+            make.topMargin.equalTo(view).offset(Geometry.CreateGameButton.topOffset)
             make.left.right.equalTo(view).inset(Geometry.CreateGameButton.horizontalInset)
             make.height.equalTo(Geometry.CreateGameButton.height)
         }
         createGameButton.addTarget(self, action: #selector(createGameButtonPressed),
                                    for: .touchUpInside)
+        
+        let createGameButtonTitle = AttributedStringMake { (attrs, ctx) in
+            attrs.font = UIFont.systemFont(ofSize: Geometry.CreateGameButton.fontSize)
+            attrs.foregroundColor = Colors.createGameButtonText
+            attrs.alignment = .center
+            ctx.append("Crear nuevo juego")
+        }
+        createGameButton.setAttributedTitle(createGameButtonTitle, for: .normal)
         
         // find game button
         view.addSubview(findGameButton)
@@ -73,22 +90,33 @@ class HomeViewController: UIViewController {
         findGameButton.layer.cornerRadius = Geometry.FindGameButton.cornerRadius
         findGameButton.layer.masksToBounds = true
         findGameButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(Geometry.FindGameButton.topOffset)
+            make.top.equalTo(createGameButton.snp.bottom).offset(Geometry.FindGameButton.topOffset)
             make.left.right.equalTo(view).inset(Geometry.FindGameButton.horizontalInset)
             make.height.equalTo(Geometry.FindGameButton.height)
         }
         findGameButton.addTarget(self, action: #selector(findGameButtonPressed),
                                    for: .touchUpInside)
         
+        let findGameButtonTitle = AttributedStringMake { (attrs, ctx) in
+            attrs.font = UIFont.systemFont(ofSize: Geometry.FindGameButton.fontSize)
+            attrs.foregroundColor = Colors.findGameButtonText
+            attrs.alignment = .center
+            ctx.append("Buscar juego existente")
+        }
+        findGameButton.setAttributedTitle(findGameButtonTitle, for: .normal)
+        
         // table view
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.left.right.bottom.equalTo(view)
-            make.top.equalTo(findGameButton).offset(Geometry.TableView.topOffset)
+            make.top.equalTo(findGameButton.snp.bottom).offset(Geometry.TableView.topOffset)
         }
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView() // hides unused cells
+        tableView.estimatedRowHeight = 70
+        tableView.backgroundColor = Colors.background
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(GameTableViewCell.self,
                            forCellReuseIdentifier: ReuseId.gameCell)
         
@@ -103,9 +131,9 @@ class HomeViewController: UIViewController {
     
     fileprivate func updateUI() {
         spinner.startAnimating()
-        data.reload {
-            spinner.stopAnimating()
-            tableView.reloadData()
+        data.reload { [weak self] in
+            self?.spinner.stopAnimating()
+            self?.tableView.reloadData()
         }
     }
     
@@ -164,6 +192,25 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let game = self.game(forIndexPath: indexPath) else { return }
+        
+        let gameViewController = GameViewController(game: game)
+        navigationController?.pushViewController(gameViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Es tu turno"
+        case 1:
+            return "Esperando tu turno"
+        default:
+            return nil
+        }
+    }
+}
 
 
 

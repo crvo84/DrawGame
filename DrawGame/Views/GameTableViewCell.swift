@@ -16,8 +16,8 @@ class GameTableViewCell: UITableViewCell {
         static let notMyTurnBg = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
     }
     
-    fileprivate let yourScoreLabel: UILabel()
-    fileprivate let otherScoreLabel: UILabel()
+    fileprivate let yourScoreLabel = UILabel()
+    fileprivate let otherScoreLabel = UILabel()
     
     var game: Game? { didSet { updateUI() } }
 
@@ -27,7 +27,13 @@ class GameTableViewCell: UITableViewCell {
         initialSetup()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     fileprivate func initialSetup() {
+        selectionStyle = .none
+        
         // your score label
         contentView.addSubview(yourScoreLabel)
         yourScoreLabel.snp.makeConstraints { make in
@@ -40,7 +46,7 @@ class GameTableViewCell: UITableViewCell {
         contentView.addSubview(otherScoreLabel)
         otherScoreLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(Geometry.horizontalContentInset)
-            make.top.equalTo(yourScoreLabel).offset(Geometry.otherScoreLabelTopOffset)
+            make.top.equalTo(yourScoreLabel.snp.bottom).offset(Geometry.otherScoreLabelTopOffset)
             make.right.equalToSuperview().offset(-Geometry.horizontalContentInset)
             make.bottom.equalToSuperview().offset(-Geometry.verticalContentInset)
         }
@@ -58,7 +64,7 @@ class GameTableViewCell: UITableViewCell {
             attrs.font = UIFont.systemFont(ofSize: Geometry.fontSize)
             attrs.foregroundColor = Colors.yourScoreLabel
             attrs.alignment = .left
-            ctx.append("Your score: \(game.myScore)")
+            ctx.append("Tu score: \(game.myScore)")
         }
         
         // other score
@@ -66,7 +72,7 @@ class GameTableViewCell: UITableViewCell {
             attrs.font = UIFont.systemFont(ofSize: Geometry.fontSize)
             attrs.foregroundColor = Colors.otherScoreLabel
             attrs.alignment = .left
-            ctx.append("Other score: \(game.otherScore)")
+            ctx.append("Otro score: \(game.otherScore)")
         }
     }
     

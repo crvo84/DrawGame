@@ -46,6 +46,12 @@ class GameViewController: UIViewController {
             static let borderWidth: CGFloat = 0.0
             static let fontSize: CGFloat = 20.0
         }
+        
+        struct PickerView {
+            static let doneButtonHeight: CGFloat = 70.0
+            static let rowHeight: CGFloat = 50.0
+            static let fontSize: CGFloat = 20.0
+        }
     }
     
     fileprivate struct Colors {
@@ -57,6 +63,7 @@ class GameViewController: UIViewController {
         static let actionButtonGuessText = UIColor(red: 0.0, green: 0.05, blue: 0.1, alpha: 1.0)
         static let actionButtonWaitBg = UIColor.lightGray
         static let actionButtonWaitText = UIColor.darkGray
+        static let pickerViewRowText = UIColor.darkGray
     }
     
     fileprivate let wordLabel = UILabel()
@@ -65,9 +72,14 @@ class GameViewController: UIViewController {
     fileprivate let paletteView = PaletteView()
     fileprivate let brushesView = BrushesView()
     fileprivate let actionButton = UIButton()
+    fileprivate let notVisibleTextField = UITextField()
+    fileprivate let wordPickerView = UIPickerView()
     
     fileprivate let game: Game
     fileprivate var gameState: GameState
+    
+    fileprivate var optionWords: [String]?
+    fileprivate var guessedWord: String?
     
     init(game: Game) {
         self.game = game
@@ -161,6 +173,22 @@ class GameViewController: UIViewController {
             make.left.right.equalToSuperview().inset(Geometry.ActionButton.horizontalInset)
             make.bottom.equalToSuperview().offset(-Geometry.ActionButton.bottomOffset)
         }
+        actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+        
+        /* Not visible text field */
+        view.layoutIfNeeded()
+        notVisibleTextField.addDoneButtonWithText("Elegir", target: self, action: #selector(selectWordButtonPressed),
+                                                  width: view.frame.width, height: Geometry.PickerView.doneButtonHeight)
+        // configure picker view
+        view.addSubview(notVisibleTextField)
+        notVisibleTextField.backgroundColor = Theme.Colors.background
+        notVisibleTextField.snp.makeConstraints { make in
+            make.width.height.equalTo(1)
+            make.bottom.left.equalToSuperview()
+        }
+        notVisibleTextField.inputView = wordPickerView
+        wordPickerView.dataSource = self
+        wordPickerView.delegate = self
         
         actionButton.setContentHuggingPriority(.defaultLow, for: .vertical)
         wordLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -248,6 +276,47 @@ class GameViewController: UIViewController {
         drawView.reset()
         wordLabel.text = nil
     }
+    
+    fileprivate func setupOptionWords() {
+        let correctWord = game.drawing.word
+        if let optionWords = self.optionWords, optionWords.contains(correctWord) {
+            return
+        }
+        
+        self.optionWords = WordManager.getAnswerOptions(totalCount: 10,
+                                                        correctAnswer: correctWord)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        notVisibleTextField.resignFirstResponder()
+    }
+    
+    @objc fileprivate func actionButtonPressed() {
+        switch gameState {
+        case .guess:
+            guard !notVisibleTextField.isFirstResponder else { return }
+            setupOptionWords()
+            notVisibleTextField.becomeFirstResponder()
+            
+        case .draw:
+        // TODO: api request for sending drawing
+            return
+            
+        case.wait:
+            return
+        }
+    }
+    
+    @objc fileprivate func selectWordButtonPressed() {
+        notVisibleTextField.resignFirstResponder()
+        let selectedRow = wordPickerView.selectedRow(inComponent: 0)
+        let selectedWord = optionWords?[selectedRow]
+        self.guessedWord = selectedWord
+        
+        // continue to draw
+        gameState = .draw
+        updateUI()
+    }
 }
 
 extension GameViewController: PaletteViewDataSource {
@@ -280,9 +349,35 @@ extension GameViewController: BrushesViewDelegate {
     }
 }
 
+extension GameViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return optionWords?.count ?? 0
+    }
+}
 
-
-
+extension GameViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return Geometry.PickerView.rowHeight
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return pickerView.frame.width
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return AttributedStringMake { (attrs, ctx) in
+            attrs.foregroundColor = Colors.pickerViewRowText
+            attrs.font = UIFont.systemFont(ofSize: Geometry.PickerView.fontSize)
+            attrs.alignment = .center
+            ctx.append(optionWords?[row])
+        }
+    }
+}
 
 
 

@@ -11,6 +11,7 @@
 		737EB2F81FC4FE2B00A95DAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2F71FC4FE2B00A95DAB /* HomeViewController.swift */; };
 		737EB2FA1FC4FFC400A95DAB /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2F91FC4FFC400A95DAB /* HomeData.swift */; };
 		737EB2FC1FC515C700A95DAB /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2FB1FC515C700A95DAB /* GameTableViewCell.swift */; };
+		737EB2FE1FC5375300A95DAB /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2FD1FC5375300A95DAB /* UITextField+Extensions.swift */; };
 		739E3F161FC3C576003D40B0 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E3F151FC3C576003D40B0 /* Extension+UIImage.swift */; };
 		73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612BE1FA561CD000F2A10 /* AppDelegate.swift */; };
 		73A612C11FA561CD000F2A10 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C01FA561CD000F2A10 /* GameViewController.swift */; };
@@ -42,6 +43,7 @@
 		737EB2F71FC4FE2B00A95DAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		737EB2F91FC4FFC400A95DAB /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
 		737EB2FB1FC515C700A95DAB /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
+		737EB2FD1FC5375300A95DAB /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		739E3F151FC3C576003D40B0 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
 		73A612BB1FA561CD000F2A10 /* DrawGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A612BE1FA561CD000F2A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				739E3F151FC3C576003D40B0 /* Extension+UIImage.swift */,
+				737EB2FD1FC5375300A95DAB /* UITextField+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				73A7F0921FA66CE100BD24BB /* BrushesView.swift in Sources */,
 				73D566101FC3CFE40022F93C /* Game.swift in Sources */,
 				739E3F161FC3C576003D40B0 /* Extension+UIImage.swift in Sources */,
+				737EB2FE1FC5375300A95DAB /* UITextField+Extensions.swift in Sources */,
 				73A612C11FA561CD000F2A10 /* GameViewController.swift in Sources */,
 				73D566161FC3D19A0022F93C /* Pixel.swift in Sources */,
 				73A7F0881FA637F800BD24BB /* LaunchViewController.swift in Sources */,

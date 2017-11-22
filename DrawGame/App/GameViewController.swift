@@ -37,11 +37,26 @@ class GameViewController: UIViewController {
             static let topOffset: CGFloat = 8.0
             static let height: CGFloat = 60.0
         }
+        
+        struct ActionButton {
+            static let topOffset: CGFloat = 20.0
+            static let bottomOffset: CGFloat = 20.0
+            static let horizontalInset: CGFloat = 20.0
+            static let cornerRadius: CGFloat = 10.0
+            static let borderWidth: CGFloat = 0.0
+            static let fontSize: CGFloat = 20.0
+        }
     }
     
     fileprivate struct Colors {
         static let wordLabel: UIColor = Theme.Colors.primaryText
         static let drawViewBorder: UIColor = Theme.Colors.main
+        static let actionButtonDrawBg = UIColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0)
+        static let actionButtonDrawText = UIColor(red: 0.0, green: 0.1, blue: 0.05, alpha: 1.0)
+        static let actionButtonGuessBg = UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0)
+        static let actionButtonGuessText = UIColor(red: 0.0, green: 0.05, blue: 0.1, alpha: 1.0)
+        static let actionButtonWaitBg = UIColor.lightGray
+        static let actionButtonWaitText = UIColor.darkGray
     }
     
     fileprivate let wordLabel = UILabel()
@@ -49,6 +64,7 @@ class GameViewController: UIViewController {
     fileprivate let guessImageView = UIImageView()
     fileprivate let paletteView = PaletteView()
     fileprivate let brushesView = BrushesView()
+    fileprivate let actionButton = UIButton()
     
     fileprivate let game: Game
     fileprivate var gameState: GameState
@@ -134,6 +150,20 @@ class GameViewController: UIViewController {
         brushesView.delegate = self
         brushesView.dataSource = self
         brushesView.reloadData()
+        
+        /* Action Button */
+        view.addSubview(actionButton)
+        actionButton.layer.cornerRadius = Geometry.ActionButton.cornerRadius
+        actionButton.layer.borderWidth = Geometry.ActionButton.borderWidth
+        actionButton.layer.masksToBounds = true
+        actionButton.snp.makeConstraints { make in
+            make.top.equalTo(brushesView.snp.bottom).offset(Geometry.ActionButton.topOffset)
+            make.left.right.equalToSuperview().inset(Geometry.ActionButton.horizontalInset)
+            make.bottom.equalToSuperview().offset(-Geometry.ActionButton.bottomOffset)
+        }
+        
+        actionButton.setContentHuggingPriority(.defaultLow, for: .vertical)
+        wordLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
     
     fileprivate func updateUI() {
@@ -172,10 +202,45 @@ class GameViewController: UIViewController {
         switch gameState {
         case .guess:
             title = "Adivinando"
+            
+            actionButton.backgroundColor = Colors.actionButtonGuessBg
+            actionButton.layer.borderColor = Colors.actionButtonGuessText.cgColor
+            let actionButtonTitle = AttributedStringMake { (attrs, ctx) in
+                attrs.font = UIFont.systemFont(ofSize: Geometry.ActionButton.fontSize)
+                attrs.foregroundColor = Colors.actionButtonGuessText
+                attrs.alignment = .center
+                ctx.append("Adivinar")
+            }
+            actionButton.setAttributedTitle(actionButtonTitle, for: .normal)
+            actionButton.isEnabled = true
+            
         case .draw:
             title = "Dibujando"
+            
+            actionButton.backgroundColor = Colors.actionButtonDrawBg
+            actionButton.layer.borderColor = Colors.actionButtonDrawText.cgColor
+            let actionButtonTitle = AttributedStringMake { (attrs, ctx) in
+                attrs.font = UIFont.systemFont(ofSize: Geometry.ActionButton.fontSize)
+                attrs.foregroundColor = Colors.actionButtonDrawText
+                attrs.alignment = .center
+                ctx.append("Enviar")
+            }
+            actionButton.setAttributedTitle(actionButtonTitle, for: .normal)
+            actionButton.isEnabled = true
+            
         case .wait:
             title = "Esperando"
+            
+            actionButton.backgroundColor = Colors.actionButtonWaitBg
+            actionButton.layer.borderColor = Colors.actionButtonWaitText.cgColor
+            let actionButtonTitle = AttributedStringMake { (attrs, ctx) in
+                attrs.font = UIFont.systemFont(ofSize: Geometry.ActionButton.fontSize)
+                attrs.foregroundColor = Colors.actionButtonWaitText
+                attrs.alignment = .center
+                ctx.append("Esperando...")
+            }
+            actionButton.setAttributedTitle(actionButtonTitle, for: .normal)
+            actionButton.isEnabled = false
         }
     }
     

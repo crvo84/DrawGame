@@ -22,3 +22,37 @@ extension Game {
     }
 }
 
+extension Game {
+    var isMyTurn: Bool {
+        let myId = Api.udid
+        
+        if myId == playerAId {
+            return isPlayerATurn
+        } else if let playerBId = playerBId, playerBId == myId {
+            return !isPlayerATurn
+        }
+        
+        return false
+    }
+    
+    var myScore: Int {
+        let myId = Api.udid
+        
+        if myId == playerAId {
+            return playerAScore
+        } else {
+            return playerBScore
+        }
+    }
+    
+    var otherScore: Int {
+        let myId = Api.udid
+        
+        if myId == playerAId {
+            return playerBScore
+        } else {
+            return playerAScore
+        }
+    }
+}
+

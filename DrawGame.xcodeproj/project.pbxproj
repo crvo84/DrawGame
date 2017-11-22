@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732509031FA5B4BF0013BDB6 /* DrawView.swift */; };
+		737EB2F81FC4FE2B00A95DAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2F71FC4FE2B00A95DAB /* HomeViewController.swift */; };
+		737EB2FA1FC4FFC400A95DAB /* HomeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2F91FC4FFC400A95DAB /* HomeData.swift */; };
+		737EB2FC1FC515C700A95DAB /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EB2FB1FC515C700A95DAB /* GameTableViewCell.swift */; };
 		739E3F161FC3C576003D40B0 /* Extension+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E3F151FC3C576003D40B0 /* Extension+UIImage.swift */; };
 		73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612BE1FA561CD000F2A10 /* AppDelegate.swift */; };
 		73A612C11FA561CD000F2A10 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A612C01FA561CD000F2A10 /* GameViewController.swift */; };
@@ -36,6 +39,9 @@
 /* Begin PBXFileReference section */
 		68EBA2540E8456867DEBD64B /* Pods_DrawGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		732509031FA5B4BF0013BDB6 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		737EB2F71FC4FE2B00A95DAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		737EB2F91FC4FFC400A95DAB /* HomeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeData.swift; sourceTree = "<group>"; };
+		737EB2FB1FC515C700A95DAB /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		739E3F151FC3C576003D40B0 /* Extension+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImage.swift"; sourceTree = "<group>"; };
 		73A612BB1FA561CD000F2A10 /* DrawGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A612BE1FA561CD000F2A10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 		732509011FA5B4710013BDB6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				737EB2FB1FC515C700A95DAB /* GameTableViewCell.swift */,
 				732509031FA5B4BF0013BDB6 /* DrawView.swift */,
 				73A7F08F1FA66C5500BD24BB /* Palette */,
 				73A7F0901FA66C6F00BD24BB /* Brush */,
@@ -122,6 +129,8 @@
 			children = (
 				73A7F0851FA636B100BD24BB /* RootViewController.swift */,
 				73A7F0871FA637F800BD24BB /* LaunchViewController.swift */,
+				737EB2F71FC4FE2B00A95DAB /* HomeViewController.swift */,
+				737EB2F91FC4FFC400A95DAB /* HomeData.swift */,
 				73A612C01FA561CD000F2A10 /* GameViewController.swift */,
 			);
 			path = App;
@@ -351,6 +360,7 @@
 				73D566161FC3D19A0022F93C /* Pixel.swift in Sources */,
 				73A7F0881FA637F800BD24BB /* LaunchViewController.swift in Sources */,
 				73D5660E1FC3CF940022F93C /* Api.swift in Sources */,
+				737EB2F81FC4FE2B00A95DAB /* HomeViewController.swift in Sources */,
 				73A612BF1FA561CD000F2A10 /* AppDelegate.swift in Sources */,
 				73D5661A1FC3D3EF0022F93C /* Player.swift in Sources */,
 				73A7F08A1FA6385D00BD24BB /* Theme.swift in Sources */,
@@ -363,8 +373,10 @@
 				73A7F0861FA636B100BD24BB /* RootViewController.swift in Sources */,
 				73D565FF1FC3CA8E0022F93C /* Drawing.swift in Sources */,
 				73A7F08C1FA63F5900BD24BB /* PaletteView.swift in Sources */,
+				737EB2FA1FC4FFC400A95DAB /* HomeData.swift in Sources */,
 				73A7F08E1FA64AA100BD24BB /* ColorCollectionViewCell.swift in Sources */,
 				732509041FA5B4BF0013BDB6 /* DrawView.swift in Sources */,
+				737EB2FC1FC515C700A95DAB /* GameTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

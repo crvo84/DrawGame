@@ -9,9 +9,12 @@ extension DataModel {
     // Returns a 'Result' with a success case with a single DataModel
     static func decodeSingle(fromJson json: Json) -> Self? {
         let decoder = JSONDecoder()
+        
+        // get "data" value from given the json (if available)
+        let dataJson = json["data"] as? Json
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: json)
+            let data = try JSONSerialization.data(withJSONObject: dataJson ?? json)
             let resultValue = try decoder.decode(Self.self, from: data)
             return resultValue
         } catch {
@@ -23,9 +26,12 @@ extension DataModel {
     // Returns a 'Result' with a success case with an array of DataModel
     static func decodeMultiple(fromJson json: Json) -> [Self]? {
         let decoder = JSONDecoder()
+        
+        // get "data" value from given the json (if available)
+        let dataJson = json["data"] as? [Json]
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: json)
+            let data = try JSONSerialization.data(withJSONObject: dataJson ?? json)
             let resultValues = try decoder.decode([Self].self, from: data)
             return resultValues
         } catch {
@@ -62,7 +68,7 @@ extension ApiEndpoint {
             completion(U.decodeSingle(fromJson: json))
         }
     }
-    
+
     func getMultiple<U: DataModel>(type: U.Type, completion: @escaping ([U]?) -> ()) {
         executeRequest { json in
             guard let json = json else {

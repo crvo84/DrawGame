@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol GameViewControllerDelegate: class {
+    func didCreateNewGame(drawing: Drawing, gameViewController: GameViewController)
+    func didEndTurn(forGame: Game, answeredCorrectly: Bool, drawing: Drawing)
+}
+
 class GameViewController: UIViewController {
     
     fileprivate enum GameState {
@@ -66,6 +71,8 @@ class GameViewController: UIViewController {
         static let pickerViewRowText = UIColor.darkGray
     }
     
+    weak var delegate: GameViewControllerDelegate?
+    
     fileprivate let wordLabel = UILabel()
     fileprivate let drawView = DrawView()
     fileprivate let guessImageView = UIImageView()
@@ -75,26 +82,43 @@ class GameViewController: UIViewController {
     fileprivate let notVisibleTextField = UITextField()
     fileprivate let wordPickerView = UIPickerView()
     
-    fileprivate let game: Game
+    fileprivate let game: Game? // nil means, will be creating new game
     fileprivate var gameState: GameState
+    
+    fileprivate var imPlayerA: Bool
+    fileprivate var wordToDraw: String?
     
     fileprivate var optionWords: [String]?
     fileprivate var guessedWord: String?
     
-    init(game: Game) {
+    init(game: Game?) {
         self.game = game
-        let iAmPlayerA = Api.udid == game.playerAId
         
-        if let _ = game.playerBId {
-            if game.isPlayerATurn {
-                self.gameState = iAmPlayerA ? .guess : .wait
+        /* im Player A */
+        // if there is no game (being created), or if I am actually playerA
+        var imPlayerA = true
+        if let playerBId = game?.playerBId, playerBId == Api.udid {
+            // if I am playerB
+            imPlayerA = false
+        }
+        self.imPlayerA = imPlayerA
+        
+        /* Game State */
+        if let _ = game?.playerBId {
+            if game!.isPlayerATurn {
+                self.gameState = imPlayerA ? .guess : .wait
             } else {
-                self.gameState = iAmPlayerA ? .wait : .guess
+                self.gameState = imPlayerA ? .wait : .guess
             }
         } else {
             // No playerBId, so I must be player A then
-            self.gameState = game.isPlayerATurn ? .draw : .wait
+            let isPlayerATurn = game == nil ? true : game!.isPlayerATurn
+            self.gameState = isPlayerATurn ? .draw : .wait
         }
+        
+        /* Word to draw */
+        // if we are creating a new game, we need a word
+        self.wordToDraw = game == nil ? WordManager.getRandomWord() : nil
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -205,7 +229,7 @@ class GameViewController: UIViewController {
             case .guess:
                 ctx.append("?")
             case .draw, .wait:
-                ctx.append(game.drawing.word)
+                ctx.append(game?.drawing.word ?? wordToDraw)
             }
         }
         
@@ -217,7 +241,7 @@ class GameViewController: UIViewController {
             guessImageView.isHidden = false
             
             // auto draw on canvas
-            guessImageView.image = game.drawing.image
+            guessImageView.image = game?.drawing.image
             guessImageView.contentMode = .scaleAspectFit
             
         case .draw:
@@ -278,7 +302,8 @@ class GameViewController: UIViewController {
     }
     
     fileprivate func setupOptionWords() {
-        let correctWord = game.drawing.word
+        guard let correctWord = game?.drawing.word ?? wordToDraw else { return }
+        
         if let optionWords = self.optionWords, optionWords.contains(correctWord) {
             return
         }
@@ -299,8 +324,23 @@ class GameViewController: UIViewController {
             notVisibleTextField.becomeFirstResponder()
             
         case .draw:
-        // TODO: api request for sending drawing
-            return
+            guard let drawedWord = wordToDraw
+                else { return }
+            guard let newDrawing = drawView.image?.getDrawing(withWord: drawedWord)
+                else { return }
+            
+            if let game = game {
+                // end turn
+                let guessedCorrectly = guessedWord == nil ? false : guessedWord! == game.drawing.word
+                delegate?.didEndTurn(forGame: game,
+                                     answeredCorrectly: guessedCorrectly,
+                                     drawing: newDrawing)
+                
+            } else {
+                // create new game
+                delegate?.didCreateNewGame(drawing: newDrawing,
+                                           gameViewController: self)
+            }
             
         case.wait:
             return
@@ -315,6 +355,7 @@ class GameViewController: UIViewController {
         
         // continue to draw
         gameState = .draw
+        wordToDraw = WordManager.getRandomWord()
         updateUI()
     }
 }

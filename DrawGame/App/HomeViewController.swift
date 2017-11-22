@@ -149,7 +149,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc fileprivate func createGameButtonPressed() {
-        
+
     }
     
     @objc fileprivate func findGameButtonPressed() {

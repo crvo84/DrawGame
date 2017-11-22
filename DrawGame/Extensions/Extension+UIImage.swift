@@ -6,6 +6,18 @@ import UIKit
 
 extension UIImage {
     
+    // MARK: - UIImage -> Drawing
+    
+    func getDrawing(withWord word: String) -> Drawing? {
+        guard let pixels = getPixels() else { return nil }
+        
+        let size = self.size
+        return Drawing(pixels: pixels,
+                       width: Int(size.width),
+                       height: Int(size.height),
+                       word: word)
+    }
+    
     // MARK: - UIImage -> Pixels
     
     func getPixels() -> [Pixel]? {

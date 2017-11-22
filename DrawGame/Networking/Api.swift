@@ -36,12 +36,10 @@ struct Api {
                 bodyParams["userId"] = udid as AnyObject
                 bodyParams["answeredCorrectly"] = answeredCorrectly as AnyObject
                 bodyParams["drawing"] = newDrawing as AnyObject
-                bodyParams["gameId"] = gameId
+                bodyParams["gameId"] = gameId as AnyObject
                 
                 return ApiRequest(method: .put, path: "/games", bodyParams: bodyParams)
             }
         }
     }
-    
-    
 }

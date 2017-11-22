@@ -26,6 +26,10 @@ class DrawView: UIView {
     private var mainImageView = UIImageView()
     private var tempImageView = UIImageView()
     
+    var image: UIImage? {
+        return mainImageView.image
+    }
+    
     private var lastPoint = CGPoint.zero
     private var swiped = false
     

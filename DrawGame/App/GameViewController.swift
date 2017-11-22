@@ -335,7 +335,6 @@ class GameViewController: UIViewController {
                 delegate?.didEndTurn(forGame: game,
                                      answeredCorrectly: guessedCorrectly,
                                      drawing: newDrawing)
-                
             } else {
                 // create new game
                 delegate?.didCreateNewGame(drawing: newDrawing,

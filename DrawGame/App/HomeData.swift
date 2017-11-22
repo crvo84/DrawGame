@@ -12,6 +12,12 @@ class HomeData {
             completion()
         }
     }
+    
+    static func findGame(completion: @espacing (Game?) -> ()) {
+        Api.Games.getAvailable.getSingle(type: Game.self) { game in
+            completion(game)
+        }
+    }
 }
 
 // MARK: - For Testing

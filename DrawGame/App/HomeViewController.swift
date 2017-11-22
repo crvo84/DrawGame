@@ -149,11 +149,22 @@ class HomeViewController: UIViewController {
     }
     
     @objc fileprivate func createGameButtonPressed() {
-
+        presentGameViewController(game: nil)
     }
     
     @objc fileprivate func findGameButtonPressed() {
-        
+        HomeData.findGame { game in
+            guard let game = game else {
+                // TODO: message, could not find game
+            }
+            presentGameViewController(game: game)
+        }
+    }
+    
+    fileprivate func presentGameViewController(game: Game?) {
+        let gameViewController = GameViewController(game: game)
+        gameViewController.delegate = self
+        navigationController?.pushViewController(gameViewController, animated: true)
     }
 }
 
@@ -207,8 +218,7 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let game = self.game(forIndexPath: indexPath) else { return }
         
-        let gameViewController = GameViewController(game: game)
-        navigationController?.pushViewController(gameViewController, animated: true)
+        presentGameViewController(game: game)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

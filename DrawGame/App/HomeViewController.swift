@@ -168,9 +168,12 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate func presentGameViewController(game: Game?) {
+        guard let navigationController = navigationController else { return }
+        guard navigationController.viewControllers.count == 1 else { return }
+        
         let gameViewController = GameViewController(game: game)
         gameViewController.delegate = self
-        navigationController?.pushViewController(gameViewController, animated: true)
+        navigationController.pushViewController(gameViewController, animated: true)
     }
 }
 

@@ -228,8 +228,10 @@ class GameViewController: UIViewController {
             switch gameState {
             case .guess:
                 ctx.append("?")
-            case .draw, .wait:
-                ctx.append(game?.drawing.word ?? wordToDraw)
+            case .draw:
+                ctx.append(wordToDraw)
+            case .wait:
+                ctx.append(game?.drawing.word)
             }
         }
         

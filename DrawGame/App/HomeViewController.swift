@@ -57,6 +57,7 @@ class HomeViewController: UIViewController {
     
     fileprivate func initialSetup() {
         view.backgroundColor = Theme.Colors.background
+        navigationController?.navigationBar.isTranslucent = false
         
         // Title
         title = "DrawGame"
@@ -74,7 +75,7 @@ class HomeViewController: UIViewController {
         createGameButton.layer.cornerRadius = Geometry.CreateGameButton.cornerRadius
         createGameButton.layer.masksToBounds = true
         createGameButton.snp.makeConstraints { make in
-            make.topMargin.equalTo(view).offset(Geometry.CreateGameButton.topOffset)
+            make.top.equalTo(view).offset(Geometry.CreateGameButton.topOffset)
             make.left.right.equalTo(view).inset(Geometry.CreateGameButton.horizontalInset)
             make.height.equalTo(Geometry.CreateGameButton.height)
         }

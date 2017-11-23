@@ -138,8 +138,10 @@ class HomeViewController: UIViewController {
     
     fileprivate func updateUI() {
         spinner.startAnimating()
+        view.isUserInteractionEnabled = false
         data.reload { [weak self] in
             self?.spinner.stopAnimating()
+            self?.view.isUserInteractionEnabled = true
             self?.tableView.reloadData()
         }
     }
@@ -153,13 +155,14 @@ class HomeViewController: UIViewController {
     }
     
     @objc fileprivate func findGameButtonPressed() {
+        navigationController?.popToViewController(self, animated: true)
+        spinner.startAnimating()
         HomeData.findGame { [weak self] game in
             guard let game = game else {
                 // TODO: message, could not find game
                 return
             }
             self?.presentGameViewController(game: game)
-            self?.updateUI()
         }
     }
     
@@ -237,14 +240,18 @@ extension HomeViewController: UITableViewDelegate {
 
 extension HomeViewController: GameViewControllerDelegate {
     func didCreateNewGame(drawing: Drawing, gameViewController: GameViewController) {
+        navigationController?.popToViewController(self, animated: true)
         spinner.startAnimating()
+        view.isUserInteractionEnabled = false
         HomeData.createGame(drawing: drawing) { [weak self] game in
             self?.updateUI()
         }
     }
     
     func didEndTurn(forGame game: Game, answeredCorrectly: Bool, drawing: Drawing) {
+        navigationController?.popToViewController(self, animated: true)
         spinner.startAnimating()
+        view.isUserInteractionEnabled = false
         HomeData.endTurn(game: game, answeredCorrectly: answeredCorrectly, newDrawing: drawing) { [weak self] game in
             self?.updateUI()
         }

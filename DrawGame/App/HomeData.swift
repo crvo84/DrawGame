@@ -24,6 +24,13 @@ class HomeData {
             completion(game)
         }
     }
+    
+    static func endTurn(game: Game, answeredCorrectly: Bool, newDrawing: Drawing, completion: @escaping (Game?) -> ()) {
+        Api.Games.endTurn(gameId: game.id, answeredCorrectly: answeredCorrectly, newDrawing: newDrawing)
+        .getSingle(type: Game.self) { updatedGame in
+            completion(updatedGame)
+        }
+    }
 }
 
 // MARK: - For Testing

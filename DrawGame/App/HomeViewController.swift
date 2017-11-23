@@ -243,8 +243,11 @@ extension HomeViewController: GameViewControllerDelegate {
         }
     }
     
-    func didEndTurn(forGame: Game, answeredCorrectly: Bool, drawing: Drawing) {
-        // TODO:
+    func didEndTurn(forGame game: Game, answeredCorrectly: Bool, drawing: Drawing) {
+        spinner.startAnimating()
+        HomeData.endTurn(game: game, answeredCorrectly: answeredCorrectly, newDrawing: drawing) { [weak self] game in
+            self?.updateUI()
+        }
     }
 }
 

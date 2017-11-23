@@ -17,7 +17,7 @@ class DrawView: UIView {
         }
         struct Color {
             static let brush = UIColor.green
-            static let canvas = UIColor.white
+            static let canvas = UIColor.black
         }
     }
     

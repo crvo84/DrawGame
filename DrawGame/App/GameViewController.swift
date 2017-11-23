@@ -28,8 +28,8 @@ class GameViewController: UIViewController {
         
         struct DrawView {
             static let topOffset: CGFloat = 20.0
-            static let width: Int = 256
-            static let height: Int = 256
+            static let width: Int = 128
+            static let height: Int = 128
             static let borderWidth: CGFloat = 2.0
         }
         
